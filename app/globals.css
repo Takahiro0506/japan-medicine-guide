@@ -1,0 +1,227 @@
+:root {
+  --paper: #fbfaf7;
+  --card: #ffffff;
+  --ink: #14181a;
+  --ink-2: #5c6a6e;
+  --ink-3: #93a0a3;
+  --rule: #dcdfd8;
+  --rule-2: #edefe9;
+  --seal: #1e5f4e;
+  --seal-bg: #edf4f1;
+  --caution: #b4471c;
+  --caution-bg: #fcf1ec;
+  --caution-rule: #ebcbbc;
+  --sans: "IBM Plex Sans", "IBM Plex Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+  --jp: "IBM Plex Sans JP", "IBM Plex Sans", "Hiragino Sans", "Noto Sans JP", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+
+.brandbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule-2);
+}
+.brandmark {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--seal);
+  text-transform: uppercase;
+}
+.backlink {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+.shelfcard {
+  border: 1px solid var(--ink);
+  margin-top: 18px;
+}
+.shelfcard-hint {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.shelfcard-body {
+  padding: 24px 14px 22px;
+  text-align: center;
+}
+.name-ja {
+  font-family: var(--jp);
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+.name-ro {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  margin-top: 11px;
+  letter-spacing: 0.04em;
+}
+.name-en {
+  font-size: 11.5px;
+  color: var(--ink-3);
+  margin-top: 5px;
+}
+
+.cautionbar {
+  background: var(--caution-bg);
+  border: 1px solid var(--caution-rule);
+  border-left-width: 3px;
+  padding: 13px;
+  margin-top: 14px;
+}
+.cautionbar-t {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--caution);
+}
+.cautionbar-t .ja {
+  font-family: var(--jp);
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+.cautionbar-d {
+  font-size: 11px;
+  color: var(--caution);
+  line-height: 1.6;
+  margin-top: 6px;
+  opacity: 0.92;
+}
+
+.classbar {
+  border: 1px solid var(--rule);
+  padding: 13px;
+  margin-top: 14px;
+}
+.classbar-t {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.classbar-t .ja {
+  font-family: var(--jp);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.ingblock {
+  margin-top: 24px;
+}
+.ingblock .val {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 8px;
+}
+
+.askline {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 12px 13px;
+  margin-top: 22px;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.askline b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.disclaimer {
+  font-size: 9.5px;
+  line-height: 1.65;
+  color: var(--ink-3);
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule-2);
+}
+
+.phrase-hint {
+  border: 1px solid var(--ink);
+  padding: 11px 12px;
+  margin-top: 18px;
+}
+.phrase-hint-t {
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.phrase-hint-d {
+  font-size: 10.5px;
+  color: var(--ink-2);
+  line-height: 1.5;
+  margin-top: 4px;
+}
+.pgroup {
+  margin-top: 22px;
+}
+.prow {
+  border-top: 1px solid var(--rule);
+  padding: 11px 0;
+}
+.prow:last-of-type {
+  border-bottom: 1px solid var(--rule);
+}
+.prow-en {
+  font-size: 11px;
+  color: var(--ink-3);
+  line-height: 1.4;
+}
+.prow-ja {
+  font-family: var(--jp);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  margin-top: 5px;
+}
