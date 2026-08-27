@@ -26,10 +26,10 @@ export default async function HomePage() {
       ))}
 
       <div className="divider">
-        <span>Not sure what to look for?</span>
+        <span>Can&#39;t explain it in Japanese?</span>
       </div>
       <Link className="cta" href="/consult">
-        Ask the pharmacist
+        Make a card in Japanese
       </Link>
 
       <div className="foot">

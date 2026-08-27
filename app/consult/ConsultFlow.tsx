@@ -68,7 +68,7 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
             &lsaquo;
           </button>
         )}
-        <h2>{step === "card" ? "Show this to the pharmacist" : "Ask the pharmacist"}</h2>
+        <h2>{step === "card" ? "Show this to the pharmacist" : "Make a card in Japanese"}</h2>
       </div>
 
       {step === 1 && (
