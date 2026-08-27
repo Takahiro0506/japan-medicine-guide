@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getCategories, getForeignBrands, getProductsSearchIndex } from "@/lib/data";
 import { HomeSearch } from "./HomeSearch";
 
@@ -14,7 +15,9 @@ export default async function HomePage() {
     <main className="page">
       <div className="brandbar">
         <span className="brandmark">Japan Medicine Guide</span>
-        <span className="backlink">About</span>
+        <Link className="backlink" href="/about">
+          About
+        </Link>
       </div>
 
       <h2 className="ask">Reading the shelf at a Japanese chemist.</h2>
@@ -27,10 +30,10 @@ export default async function HomePage() {
       </div>
       <div className="catgrid">
         {categories.map((category) => (
-          <div className="cat" key={category.slug}>
+          <Link className="cat" href={`/category/${category.slug}`} key={category.slug}>
             <div className="cat-en">{category.name_en}</div>
             <div className="cat-ja">{category.name_ja}</div>
-          </div>
+          </Link>
         ))}
       </div>
 

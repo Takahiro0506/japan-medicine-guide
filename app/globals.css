@@ -295,8 +295,11 @@ body {
   margin-top: 10px;
 }
 .cat {
+  display: block;
   background: var(--card);
   padding: 13px 11px;
+  text-decoration: none;
+  color: inherit;
 }
 .cat-en {
   font-size: 12.5px;
@@ -460,8 +463,50 @@ body {
   margin-left: 8px;
 }
 
+.result-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.result-link:hover {
+  background: var(--rule-2);
+}
+
+.about-body {
+  margin-top: 20px;
+}
+.about-body p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ink-2);
+}
+.about-body p + p {
+  margin-top: 14px;
+}
+
+.site-footer {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  display: flex;
+  gap: 16px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+}
+.site-footer a {
+  color: var(--ink-3);
+  text-decoration: none;
+}
+.site-footer a:hover {
+  color: var(--seal);
+}
+
 @media print {
   body {
     background: #fff;
+  }
+  .site-footer {
+    display: none;
   }
 }
