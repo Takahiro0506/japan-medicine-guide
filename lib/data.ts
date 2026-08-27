@@ -130,3 +130,20 @@ export async function getCategories(): Promise<CategoryItem[]> {
     .returns<CategoryItem[]>();
   return data ?? [];
 }
+
+export interface ConsultOption {
+  slug: string;
+  step: 1 | 2 | 3;
+  text_en: string;
+  text_ja: string;
+}
+
+export async function getConsultOptions(): Promise<ConsultOption[]> {
+  const { data } = await supabase
+    .from("consult_options")
+    .select("slug, step, text_en, text_ja")
+    .order("step", { ascending: true })
+    .order("sort_order", { ascending: true })
+    .returns<ConsultOption[]>();
+  return data ?? [];
+}
