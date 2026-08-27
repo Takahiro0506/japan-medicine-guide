@@ -39,9 +39,10 @@ export default async function CategoryPage({
       </div>
 
       {products.map((product) => {
-        const sameAs = foreignBrands.find((brand) =>
-          product.ingredientSlugs.includes(brand.ingredient_slug)
-        );
+        const sameAs =
+          product.ingredientSlugs.length === 1
+            ? foreignBrands.find((brand) => brand.ingredient_slug === product.ingredientSlugs[0])
+            : undefined;
         const isClass1 = product.otc_class === "class1";
 
         return (

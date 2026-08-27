@@ -28,9 +28,10 @@ export default async function ProductPage({
 
   const category = categories.find((item) => item.slug === product.category);
   const isClass1 = product.otc_class === "class1";
-  const sameAs = foreignBrands.find((brand) =>
-    product.ingredients.some((ing) => ing.slug === brand.ingredient_slug)
-  );
+  const sameAs =
+    product.ingredients.length === 1
+      ? foreignBrands.find((brand) => brand.ingredient_slug === product.ingredients[0].slug)
+      : undefined;
 
   return (
     <main className="v2">
