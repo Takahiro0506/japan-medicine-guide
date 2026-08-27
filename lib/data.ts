@@ -24,6 +24,14 @@ export interface CategoryItem {
   name_ja: string;
 }
 
+export interface CategoryProductItem {
+  slug: string;
+  name_ja: string;
+  name_romaji: string;
+  otc_class: OtcClass;
+  ingredientSlugs: string[];
+}
+
 interface RawProductRow {
   slug: string;
   name_ja: string;
@@ -35,6 +43,14 @@ interface RawProductRow {
     sort_order: number;
     ingredients: { slug: string; name_en: string } | null;
   }[];
+}
+
+interface RawCategoryProductRow {
+  slug: string;
+  name_ja: string;
+  name_romaji: string;
+  otc_class: OtcClass;
+  product_ingredients: { ingredients: { slug: string } | null }[];
 }
 
 interface RawForeignBrandRow {
@@ -63,6 +79,25 @@ export async function getProductsSearchIndex(): Promise<ProductSearchItem[]> {
     ingredients: row.product_ingredients
       .filter((pi) => pi.ingredients !== null)
       .map((pi) => ({ slug: pi.ingredients!.slug, name_en: pi.ingredients!.name_en })),
+  }));
+}
+
+export async function getProductsByCategory(categorySlug: string): Promise<CategoryProductItem[]> {
+  const { data } = await supabase
+    .from("products")
+    .select("slug, name_ja, name_romaji, otc_class, product_ingredients(ingredients(slug))")
+    .eq("category", categorySlug)
+    .order("sort_order", { ascending: true })
+    .returns<RawCategoryProductRow[]>();
+
+  return (data ?? []).map((row) => ({
+    slug: row.slug,
+    name_ja: row.name_ja,
+    name_romaji: row.name_romaji,
+    otc_class: row.otc_class,
+    ingredientSlugs: row.product_ingredients
+      .map((pi) => pi.ingredients?.slug)
+      .filter((slug): slug is string => Boolean(slug)),
   }));
 }
 

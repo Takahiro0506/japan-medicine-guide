@@ -1,45 +1,41 @@
 import Link from "next/link";
-import { getCategories, getForeignBrands, getProductsSearchIndex } from "@/lib/data";
-import { HomeSearch } from "./HomeSearch";
+import { getCategories } from "@/lib/data";
 
 export const dynamic = "force-static";
 
 export default async function HomePage() {
-  const [categories, foreignBrands, products] = await Promise.all([
-    getCategories(),
-    getForeignBrands(),
-    getProductsSearchIndex(),
-  ]);
+  const categories = await getCategories();
 
   return (
-    <main className="page">
-      <div className="brandbar">
-        <span className="brandmark">Japan Medicine Guide</span>
-        <Link className="backlink" href="/about">
-          About
+    <main className="v2">
+      <div className="bar">
+        <div>
+          <h2>Japan Medicine Guide</h2>
+          <div className="sub">What are you looking for?</div>
+        </div>
+      </div>
+
+      {categories.map((category) => (
+        <Link className="row" href={`/category/${category.slug}`} key={category.slug}>
+          <div>
+            <div className="en">{category.name_en}</div>
+            <div className="ja">{category.name_ja}</div>
+          </div>
+          <span className="chev">&rsaquo;</span>
         </Link>
+      ))}
+
+      <div className="divider">
+        <span>Not sure what to look for?</span>
       </div>
+      <Link className="cta" href="/consult">
+        Ask the pharmacist
+      </Link>
 
-      <h2 className="ask">Reading the shelf at a Japanese chemist.</h2>
-      <p className="ask-sub">Search a brand you use at home, or browse by symptom.</p>
-
-      <HomeSearch foreignBrands={foreignBrands} products={products} />
-
-      <div className="rule-top">
-        <span className="label">Browse by symptom</span>
+      <div className="foot">
+        Information only &mdash; not medical advice. Facts come from manufacturers&#39; package
+        inserts and are checked by a registered pharmacist in Japan.
       </div>
-      <div className="catgrid">
-        {categories.map((category) => (
-          <Link className="cat" href={`/category/${category.slug}`} key={category.slug}>
-            <div className="cat-en">{category.name_en}</div>
-            <div className="cat-ja">{category.name_ja}</div>
-          </Link>
-        ))}
-      </div>
-
-      <p className="disclaimer">
-        Information only &mdash; not medical advice. Checked by a registered pharmacist in Japan.
-      </p>
     </main>
   );
 }
