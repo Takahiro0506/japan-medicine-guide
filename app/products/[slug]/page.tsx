@@ -1,46 +1,12 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { supabase } from "@/lib/supabase";
-import { getOtcClassInfo, type OtcClass } from "@/lib/otcClass";
+import { getCategories, getForeignBrands, getProductsSearchIndex } from "@/lib/data";
 
 export const dynamicParams = false;
 
-interface ProductRow {
-  slug: string;
-  name_ja: string;
-  name_romaji: string;
-  summary_en: string;
-  otc_class: OtcClass;
-  source_url: string | null;
-  reviewed_at: string | null;
-}
-
-interface IngredientRow {
-  sort_order: number;
-  ingredients: { name_en: string } | null;
-}
-
 export async function generateStaticParams() {
-  const { data } = await supabase.from("products").select("slug");
-  return (data ?? []).map((product) => ({ slug: product.slug }));
-}
-
-async function getProduct(slug: string) {
-  const { data } = await supabase
-    .from("products")
-    .select("slug, name_ja, name_romaji, summary_en, otc_class, source_url, reviewed_at")
-    .eq("slug", slug)
-    .single<ProductRow>();
-  return data;
-}
-
-async function getIngredients(slug: string) {
-  const { data } = await supabase
-    .from("product_ingredients")
-    .select("sort_order, ingredients(name_en)")
-    .eq("product_slug", slug)
-    .order("sort_order", { ascending: true })
-    .returns<IngredientRow[]>();
-  return data ?? [];
+  const products = await getProductsSearchIndex();
+  return products.map((product) => ({ slug: product.slug }));
 }
 
 export default async function ProductPage({
@@ -49,77 +15,88 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [product, ingredients] = await Promise.all([
-    getProduct(slug),
-    getIngredients(slug),
+  const [products, categories, foreignBrands] = await Promise.all([
+    getProductsSearchIndex(),
+    getCategories(),
+    getForeignBrands(),
   ]);
 
+  const product = products.find((item) => item.slug === slug);
   if (!product) {
     notFound();
   }
 
-  const classInfo = getOtcClassInfo(product.otc_class);
-
-  const disclaimerParts: string[] = [];
-  if (product.source_url) {
-    disclaimerParts.push("Source: manufacturer's package insert.");
-  }
-  if (product.reviewed_at) {
-    disclaimerParts.push(`Checked ${product.reviewed_at.slice(0, 10)}.`);
-  }
+  const category = categories.find((item) => item.slug === product.category);
+  const isClass1 = product.otc_class === "class1";
+  const sameAs = foreignBrands.find((brand) =>
+    product.ingredients.some((ing) => ing.slug === brand.ingredient_slug)
+  );
 
   return (
-    <main className="page">
-      <div className="brandbar">
-        <span className="brandmark">Japan Medicine Guide</span>
-        <span className="backlink">Product</span>
-      </div>
-
-      <div className="shelfcard">
-        <div className="shelfcard-hint">Match this on the shelf</div>
-        <div className="shelfcard-body">
-          <div className="name-ja">{product.name_ja}</div>
-          <div className="name-ro">{product.name_romaji}</div>
-          <div className="name-en">{product.summary_en}</div>
+    <main className="v2">
+      <div className="bar">
+        <Link className="back" href={`/category/${product.category}`}>
+          &lsaquo;
+        </Link>
+        <div>
+          <h2>{category?.name_en}</h2>
+          <div className="sub">back to the list</div>
         </div>
       </div>
 
-      {classInfo.isClass1 ? (
-        <div className="cautionbar">
-          <div className="cautionbar-t">
-            {classInfo.en} <span className="ja">{classInfo.ja}</span>
-          </div>
-          <div className="cautionbar-d">
-            Like Pharmacist Only (S3) at home &mdash; a pharmacist has to hand it to you. Many
-            shops have no pharmacist on duty in the evening.
-          </div>
-        </div>
-      ) : (
-        <div className="classbar">
-          <div className="classbar-t">
-            {classInfo.en} <span className="ja">{classInfo.ja}</span>
+      <div className="shelf">
+        <div className="hint2">MATCH THIS ON THE SHELF</div>
+        <div className="big">{product.name_ja}</div>
+        <div className="ro2">{product.name_romaji}</div>
+      </div>
+
+      {isClass1 && (
+        <div className="stopbar">
+          <div className="t">Class 1 &middot; pharmacist required</div>
+          <div className="d">
+            Like Pharmacist Only (S3) at home. Many shops have no pharmacist on duty in the
+            evening.
           </div>
         </div>
       )}
 
-      <div className="ingblock">
-        <span className="label">
-          Active ingredient{ingredients.length !== 1 ? "s" : ""}
-        </span>
-        {ingredients.map((row) => (
-          <div className="val" key={row.sort_order}>
-            {row.ingredients?.name_en}
+      <div className="field">
+        <div className="lb">
+          ACTIVE INGREDIENT{product.ingredients.length !== 1 ? "S" : ""}
+        </div>
+        {product.ingredients.map((ing) => (
+          <div className="vl" key={ing.slug}>
+            {ing.name_en}
           </div>
         ))}
       </div>
 
-      <div className="askline">
+      <div className="samebar">
+        {sameAs ? (
+          <>
+            Same ingredient as <b>{sameAs.name}</b>.
+          </>
+        ) : (
+          "Not sold in Australia."
+        )}
+      </div>
+
+      <div className="note">
         <b>Ask the pharmacist</b> if you are pregnant, taking other medicine, or under 15.
       </div>
 
-      {disclaimerParts.length > 0 && (
-        <p className="disclaimer">{disclaimerParts.join(" ")}</p>
+      {(product.source_url || product.reviewed_at) && (
+        <div className="foot">
+          {product.source_url && "Source: manufacturer's package insert."}
+          {product.reviewed_at && ` Checked ${product.reviewed_at.slice(0, 10)}.`}
+        </div>
       )}
+
+      <div className="fs">
+        <Link className="b" href={`/category/${product.category}`}>
+          &lsaquo; Back to {category?.name_en}
+        </Link>
+      </div>
     </main>
   );
 }

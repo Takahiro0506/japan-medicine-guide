@@ -8,6 +8,8 @@ export interface ProductSearchItem {
   otc_class: OtcClass;
   category: string;
   search_terms: string[];
+  source_url: string | null;
+  reviewed_at: string | null;
   ingredients: { slug: string; name_en: string }[];
 }
 
@@ -39,6 +41,8 @@ interface RawProductRow {
   otc_class: OtcClass;
   category: string;
   search_terms: string[];
+  source_url: string | null;
+  reviewed_at: string | null;
   product_ingredients: {
     sort_order: number;
     ingredients: { slug: string; name_en: string } | null;
@@ -64,7 +68,7 @@ export async function getProductsSearchIndex(): Promise<ProductSearchItem[]> {
   const { data } = await supabase
     .from("products")
     .select(
-      "slug, name_ja, name_romaji, otc_class, category, search_terms, product_ingredients(sort_order, ingredients(slug, name_en))"
+      "slug, name_ja, name_romaji, otc_class, category, search_terms, source_url, reviewed_at, product_ingredients(sort_order, ingredients(slug, name_en))"
     )
     .order("sort_order", { foreignTable: "product_ingredients", ascending: true })
     .returns<RawProductRow[]>();
@@ -76,6 +80,8 @@ export async function getProductsSearchIndex(): Promise<ProductSearchItem[]> {
     otc_class: row.otc_class,
     category: row.category,
     search_terms: row.search_terms,
+    source_url: row.source_url,
+    reviewed_at: row.reviewed_at,
     ingredients: row.product_ingredients
       .filter((pi) => pi.ingredients !== null)
       .map((pi) => ({ slug: pi.ingredients!.slug, name_en: pi.ingredients!.name_en })),

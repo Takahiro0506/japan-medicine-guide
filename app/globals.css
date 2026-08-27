@@ -681,6 +681,116 @@ body {
   background: var(--v2-stop-soft);
 }
 
+.v2 .shelf {
+  background: var(--v2-card);
+  border: 1px solid var(--v2-border);
+  border-radius: 10px;
+  padding: 22px 16px;
+  text-align: center;
+}
+.v2 .shelf .hint2 {
+  font-size: 10.5px;
+  color: var(--v2-ink-3);
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+}
+.v2 .shelf .big {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+.v2 .shelf .ro2 {
+  font-size: 13px;
+  color: var(--v2-ink-2);
+  margin-top: 9px;
+}
+
+.v2 .stopbar {
+  background: var(--v2-stop-soft);
+  border: 1px solid #e4c4ba;
+  border-left-width: 3px;
+  border-radius: 6px;
+  padding: 12px 13px;
+  margin-top: 12px;
+}
+.v2 .stopbar .t {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--v2-stop);
+}
+.v2 .stopbar .d {
+  font-size: 11px;
+  color: var(--v2-stop);
+  line-height: 1.6;
+  margin-top: 6px;
+  opacity: 0.92;
+}
+
+.v2 .field {
+  display: block;
+  border: none;
+  padding: 0;
+  gap: 0;
+  align-items: unset;
+  margin-top: 16px;
+}
+.v2 .field .lb {
+  font-size: 10.5px;
+  color: var(--v2-ink-3);
+  letter-spacing: 0.05em;
+}
+.v2 .field .vl {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.v2 .samebar {
+  background: var(--v2-card);
+  border: 1px solid var(--v2-border);
+  border-radius: 8px;
+  padding: 11px 13px;
+  margin-top: 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--v2-ink-2);
+}
+.v2 .samebar b {
+  color: var(--v2-ink);
+  font-weight: 600;
+}
+
+.v2 .note {
+  background: var(--v2-bg);
+  border: 1px solid var(--v2-border);
+  border-radius: 8px;
+  padding: 12px 13px;
+  margin-top: 14px;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--v2-ink-2);
+}
+.v2 .note b {
+  color: var(--v2-ink);
+  font-weight: 600;
+}
+
+.v2 .fs {
+  margin-top: 22px;
+}
+.v2 .fs .b {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--v2-ink-2);
+  border: 1px solid var(--v2-border);
+  border-radius: 9px;
+  padding: 13px;
+  text-decoration: none;
+}
+
 @media print {
   body {
     background: #fff;
