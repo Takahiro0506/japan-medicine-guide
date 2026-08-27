@@ -3,269 +3,303 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Japan Medicine Guide — MVP Mockup (AU persona)</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+JP:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Japan Medicine Guide v2 — 画面遷移モックアップ</title>
 <style>
 /* ============================================================
-   Japan Medicine Guide — MVP / for Australian travellers
-   読者は Perth や Sydney から来た旅行者。
-   Panadol と Nurofen を常備し、Pharmacist Only (S3) を知っている。
-   赤はページ内で1箇所、第1類にのみ予約する。
+   Japan Medicine Guide v2
+   豪州版の配色・構造をそのまま継承する（姉妹プロダクトとして揃える）
+   #F1EFE8 / #FFFFFF / #D3D1C7 / #185FA5 / #2B2A26
+   検索窓は廃止。入口はカテゴリ一覧と「薬剤師に相談する」の2つだけ。
+   赤は「そのまま進めない」合図にのみ使う（第1類 / 受診勧奨）。
    ============================================================ */
 :root{
-  --paper:#FBFAF7; --card:#FFFFFF;
-  --ink:#14181A; --ink-2:#5C6A6E; --ink-3:#93A0A3;
-  --rule:#DCDFD8; --rule-2:#EDEFE9;
-  --seal:#1E5F4E; --seal-bg:#EDF4F1;
-  --caution:#B4471C; --caution-bg:#FCF1EC; --caution-rule:#EBCBBC;
-  --sans:"IBM Plex Sans","IBM Plex Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;
-  --jp:"IBM Plex Sans JP","IBM Plex Sans","Hiragino Sans","Noto Sans JP",sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --bg:#F1EFE8;
+  --card:#FFFFFF;
+  --border:#D3D1C7;
+  --accent:#185FA5;
+  --accent-soft:#E9F0F7;
+  --ink:#2B2A26;
+  --ink-2:#6E6C64;
+  --ink-3:#9A978D;
+  --stop:#B4462F;
+  --stop-soft:#FBF1EE;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;padding:48px 24px 80px}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+  padding:40px 24px 64px;-webkit-font-smoothing:antialiased;
+}
+.head{max-width:1500px;margin:0 auto 32px}
+.head h1{font-size:20px;font-weight:600;letter-spacing:.01em}
+.head p{font-size:13px;color:var(--ink-2);margin-top:8px;line-height:1.7;max-width:78ch}
+.head b{color:var(--ink);font-weight:600}
 
-.page-head{max-width:1400px;margin:0 auto 44px;border-bottom:1px solid var(--rule);padding-bottom:24px}
-.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--seal);text-transform:uppercase;margin-bottom:10px}
-.page-head h1{font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.2}
-.page-head p{font-size:14px;color:var(--ink-2);margin-top:10px;max-width:64ch;line-height:1.65}
-.page-head b{color:var(--ink);font-weight:600}
+.rail{display:flex;gap:28px;align-items:flex-start;max-width:1500px;margin:0 auto;overflow-x:auto;padding-bottom:16px}
+.col{flex:0 0 268px}
+.cap{margin-top:12px}
+.cap .n{display:inline-block;font-size:11px;font-weight:600;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:1px 6px;margin-bottom:6px}
+.cap .t{font-size:13px;font-weight:600}
+.cap .d{font-size:12px;color:var(--ink-2);line-height:1.6;margin-top:3px}
+.cap .d b{color:var(--ink);font-weight:600}
 
-.rail{max-width:1400px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:flex-start}
-.frame{width:320px}
-.frame-label{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
-.frame-num{font-family:var(--mono);font-size:11px;color:var(--seal);font-weight:600}
-.frame-name{font-size:13px;font-weight:600}
-.frame-note{font-size:12px;color:var(--ink-2);line-height:1.65;margin-top:14px;padding-left:14px;border-left:2px solid var(--rule)}
-.frame-note b{color:var(--ink);font-weight:600}
+.phone{width:268px;background:var(--bg);border:1px solid var(--border);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;height:512px}
+.bar{background:var(--card);border-bottom:1px solid var(--border);padding:13px 15px;display:flex;align-items:center;gap:9px;flex:0 0 auto}
+.bar .back{color:var(--ink-3);font-size:15px;line-height:1}
+.bar h2{font-size:14px;font-weight:600}
+.bar .sub{font-size:11px;color:var(--ink-2);margin-top:2px}
+.body{padding:13px;overflow:hidden;flex:1 1 auto}
 
-.device{background:var(--card);border:1px solid var(--rule);border-radius:20px;overflow:hidden;box-shadow:0 1px 2px rgba(20,24,26,.04),0 12px 32px rgba(20,24,26,.07)}
-.statusbar{height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid var(--rule-2);font-family:var(--mono);font-size:9px;color:var(--ink-3);letter-spacing:.06em}
-.view{padding:16px 16px 26px}
+.row{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.row .en{font-size:13px;font-weight:500}
+.row .ja{font-size:10.5px;color:var(--ink-3);margin-top:2px}
+.row .chev{color:var(--ink-3);font-size:13px}
 
-.brandbar{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--rule-2)}
-.brandmark{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;color:var(--seal);text-transform:uppercase}
-.backlink{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.04em}
-.label{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.12em;color:var(--ink-3);text-transform:uppercase}
-.rule-top{border-top:1px solid var(--rule);padding-top:11px;margin-top:24px}
-.disclaimer{font-size:9.5px;line-height:1.65;color:var(--ink-3);margin-top:24px;padding-top:12px;border-top:1px solid var(--rule-2)}
+.divider{display:flex;align-items:center;gap:9px;margin:16px 2px 11px}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border)}
+.divider span{font-size:11px;color:var(--ink-2)}
+.cta{background:var(--accent);color:#fff;border-radius:9px;padding:13px;text-align:center;font-size:13px;font-weight:600}
 
-.ask{font-size:22px;font-weight:600;letter-spacing:-.025em;line-height:1.25;margin:20px 0 6px}
-.ask-sub{font-size:12.5px;color:var(--ink-2);line-height:1.55;margin-bottom:16px}
-.field{display:flex;align-items:center;gap:9px;border:1.5px solid var(--seal);border-radius:8px;padding:12px 13px}
-.field-icon{font-size:12px;color:var(--seal)}
-.field-value{font-size:14px;font-weight:500}
-.caret{width:1.5px;height:16px;background:var(--seal);margin-left:1px}
-.suggests{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.suggest{font-family:var(--mono);font-size:10px;padding:5px 9px;border:1px solid var(--rule);border-radius:99px;color:var(--ink-2)}
-.catgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:10px}
-.cat{background:var(--card);padding:13px 11px}
-.cat-en{font-size:12.5px;font-weight:600;letter-spacing:-.01em}
-.cat-ja{font-family:var(--jp);font-size:10px;color:var(--ink-3);margin-top:3px}
+.step{font-size:11px;color:var(--ink-2);margin-bottom:9px;letter-spacing:.02em}
+.hint{font-size:11px;color:var(--ink-3);margin:-3px 0 10px}
+.chip{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:11px 13px;font-size:13px;margin-bottom:7px;display:flex;align-items:center;gap:9px}
+.chip .box{width:15px;height:15px;border:1px solid var(--border);border-radius:3px;flex:0 0 auto}
+.chip.on{border-color:var(--accent);background:var(--accent-soft)}
+.chip.on .box{background:var(--accent);border-color:var(--accent);display:flex;align-items:center;justify-content:center}
+.chip.on .box::after{content:"";width:7px;height:4px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg);margin-top:-2px}
+.chip .box.rd{border-radius:50%}
+.chip.on .box.rd::after{margin-top:0;width:6px;height:3px}
 
-.notsold{border:1px solid var(--rule);background:var(--paper);padding:12px 13px;margin:18px 0 12px}
-.notsold-t{font-size:13px;font-weight:600;line-height:1.4}
-.notsold-d{font-size:11px;color:var(--ink-2);line-height:1.55;margin-top:5px}
-.finding{background:var(--seal-bg);border-left:2px solid var(--seal);padding:13px 14px;margin-bottom:22px}
-.finding-main{font-size:14px;line-height:1.5}
-.finding-main .chem{font-family:var(--mono);font-weight:600;color:var(--seal)}
-.result{border-top:1px solid var(--rule);padding:15px 0}
-.result:last-of-type{border-bottom:1px solid var(--rule)}
-.result-ja{font-family:var(--jp);font-size:19px;font-weight:600;letter-spacing:.01em;line-height:1.3}
-.result-ro{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin-top:3px;letter-spacing:.02em}
-.result-ing{font-size:11.5px;color:var(--ink-2);margin-top:9px;line-height:1.5}
-.result-ing .hit{color:var(--seal);font-weight:600}
-.tag{display:inline-flex;align-items:center;font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.05em;padding:3px 7px;border-radius:3px;margin-top:9px;text-transform:uppercase}
-.tag-ok{background:var(--paper);border:1px solid var(--rule);color:var(--ink-2)}
-.tag-caution{background:var(--caution-bg);border:1px solid var(--caution-rule);color:var(--caution)}
+.alert{border:1px solid var(--border);border-left:3px solid var(--stop);background:var(--card);border-radius:6px;padding:9px 11px;font-size:10.5px;color:var(--ink-2);line-height:1.6;margin-top:12px}
 
-.shelfcard{border:1px solid var(--ink);margin-top:18px}
-.shelfcard-hint{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--rule)}
-.shelfcard-body{padding:24px 14px 22px;text-align:center}
-.name-ja{font-family:var(--jp);font-size:38px;font-weight:700;letter-spacing:.02em;line-height:1.1}
-.name-ro{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink-2);margin-top:11px;letter-spacing:.04em}
-.name-en{font-size:11.5px;color:var(--ink-3);margin-top:5px}
-.cautionbar{background:var(--caution-bg);border:1px solid var(--caution-rule);border-left-width:3px;padding:13px;margin-top:14px}
-.cautionbar-t{display:flex;align-items:baseline;gap:7px;font-size:12.5px;font-weight:600;color:var(--caution)}
-.cautionbar-t .ja{font-family:var(--jp);font-size:11px;font-weight:500;opacity:.8}
-.cautionbar-d{font-size:11px;color:var(--caution);line-height:1.6;margin-top:6px;opacity:.92}
-.ingblock{margin-top:24px}
-.ingblock .val{font-size:17px;font-weight:600;letter-spacing:-.01em;margin-top:8px}
-.askline{background:var(--paper);border:1px solid var(--rule);padding:12px 13px;margin-top:22px;font-size:11.5px;line-height:1.6;color:var(--ink-2)}
-.askline b{color:var(--ink);font-weight:600}
+/* 商品カード */
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:12px 13px;margin-bottom:8px}
+.pcard .nm{font-size:17px;font-weight:700;letter-spacing:.01em;line-height:1.25}
+.pcard .ro{font-size:11px;color:var(--ink-2);margin-top:3px}
+.pcard .same{display:inline-block;font-size:10.5px;color:var(--accent);background:var(--accent-soft);border-radius:4px;padding:2px 7px;margin-top:8px}
+.pcard .tag{display:inline-block;font-size:10px;color:var(--ink-2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;margin-top:8px}
+.pcard .tag.stop{color:var(--stop);border-color:#E4C4BA;background:var(--stop-soft)}
 
-/* 4. PHRASES */
-.phrase-hint{border:1px solid var(--ink);padding:11px 12px;margin-top:18px}
-.phrase-hint-t{font-size:12.5px;font-weight:600;line-height:1.4}
-.phrase-hint-d{font-size:10.5px;color:var(--ink-2);line-height:1.5;margin-top:4px}
-.pgroup{margin-top:22px}
-.prow{border-top:1px solid var(--rule);padding:11px 0}
-.prow:last-of-type{border-bottom:1px solid var(--rule)}
-.prow-en{font-size:11px;color:var(--ink-3);line-height:1.4}
-.prow-ja{font-family:var(--jp);font-size:21px;font-weight:600;letter-spacing:.01em;line-height:1.35;margin-top:5px}
-@media (max-width:760px){body{padding:32px 16px 60px}.frame{width:100%;max-width:340px}}
+/* 商品詳細 */
+.shelf{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 14px;text-align:center}
+.shelf .hint2{font-size:10px;color:var(--ink-3);margin-bottom:12px;letter-spacing:.04em}
+.shelf .big{font-size:32px;font-weight:700;letter-spacing:.02em;line-height:1.15}
+.shelf .ro2{font-size:12.5px;color:var(--ink-2);margin-top:8px}
+.stopbar{background:var(--stop-soft);border:1px solid #E4C4BA;border-left-width:3px;border-radius:6px;padding:11px 12px;margin-top:11px}
+.stopbar .t{font-size:12px;font-weight:600;color:var(--stop)}
+.stopbar .d{font-size:10.5px;color:var(--stop);line-height:1.6;margin-top:5px;opacity:.92}
+.field{margin-top:15px}
+.field .lb{font-size:10px;color:var(--ink-3);letter-spacing:.04em}
+.field .vl{font-size:15px;font-weight:600;margin-top:5px}
+.samebar{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:13px;font-size:11.5px;line-height:1.6;color:var(--ink-2)}
+.samebar b{color:var(--ink);font-weight:600}
+
+/* 完成カード */
+.jacard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:15px}
+.jacard p{font-size:16px;line-height:1.8;margin-bottom:10px;font-weight:500}
+.jacard .ask{font-weight:700}
+.jacard .note{font-size:14px;line-height:1.75;border-top:1px solid var(--border);padding-top:11px;margin-top:12px;margin-bottom:0;font-weight:600}
+.encheck{font-size:10.5px;color:var(--ink-2);line-height:1.65;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:9px}
+.encheck b{display:block;color:var(--ink-3);font-size:10px;font-weight:600;margin-bottom:4px}
+
+.foot{flex:0 0 auto;border-top:1px solid var(--border);background:var(--card);padding:9px 13px;font-size:9.5px;color:var(--ink-3);line-height:1.5}
+.fs{background:var(--card);border-top:1px solid var(--border);padding:11px 13px;display:flex;gap:8px;flex:0 0 auto}
+.fs div{flex:1;text-align:center;font-size:11.5px;font-weight:600;border-radius:7px;padding:10px 0}
+.fs .a{background:var(--accent);color:#fff}
+.fs .b{border:1px solid var(--border);color:var(--ink-2)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 
-<header class="page-head">
-  <div class="eyebrow">Japan Medicine Guide — MVP / AU persona</div>
-  <h1>4画面モックアップ（豪州向け）</h1>
-  <p>読者を<b>「Perth や Sydney から来た旅行者」</b>に固定しました。用語は <b>paracetamol</b>（acetaminophen とは書かない）、綴りは -ise 系。ブランドは Panadol / Nurofen / Telfast / Aspro / Pepcid の5件のみ。<b>「同系統・別成分」の表示は廃止</b>し、成分が完全に一致するものだけを出します。<br>04 にカウンターで見せるフレーズ集を追加しました。<b>商品データとは JOIN しません。</b></p>
-</header>
+<div class="head">
+  <h1>Japan Medicine Guide v2 — 画面遷移</h1>
+  <p>豪州版の配色と構造をそのまま継承しました。<b>検索窓は廃止</b>し、入口をカテゴリ一覧と「Ask the pharmacist」の2つに絞っています。外国ブランドの対応関係は入口ではなく<b>商品カードのラベル</b>として残しました。赤は「そのまま進めない」合図にのみ使います（第1類・受診勧奨）。</p>
+</div>
 
 <div class="rail">
 
-  <!-- 1 -->
-  <div class="frame">
-    <div class="frame-label"><span class="frame-num">01</span><span class="frame-name">Home</span></div>
-    <div class="device">
-      <div class="statusbar"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
-      <div class="view">
-        <div class="brandbar"><span class="brandmark">Japan Medicine Guide</span><span class="backlink">About</span></div>
-        <h2 class="ask">Reading the shelf at a Japanese chemist.</h2>
-        <p class="ask-sub">Search a brand you use at home, or browse by symptom.</p>
-        <div class="field"><span class="field-icon">&#9656;</span><span class="field-value">Panadol</span><span class="caret"></span></div>
-        <div class="suggests"><span class="suggest">Nurofen</span><span class="suggest">Telfast</span><span class="suggest">Pepcid</span><span class="suggest">Aspro</span></div>
-        <div class="rule-top"><span class="label">Browse by symptom</span></div>
-        <div class="catgrid">
-          <div class="cat"><div class="cat-en">Pain &amp; Fever</div><div class="cat-ja">痛み・熱</div></div>
-          <div class="cat"><div class="cat-en">Cold &amp; Flu</div><div class="cat-ja">かぜ</div></div>
-          <div class="cat"><div class="cat-en">Stomach</div><div class="cat-ja">胃腸</div></div>
-          <div class="cat"><div class="cat-en">Allergy</div><div class="cat-ja">アレルギー</div></div>
-          <div class="cat"><div class="cat-en">Skin</div><div class="cat-ja">皮膚</div></div>
-          <div class="cat"><div class="cat-en">Eye drops</div><div class="cat-ja">目薬</div></div>
+  <!-- 1 HOME -->
+  <div class="col">
+    <div class="phone">
+      <div class="bar">
+        <div>
+          <h2>Japan Medicine Guide</h2>
+          <div class="sub">What are you looking for?</div>
         </div>
-        <p class="disclaimer">Information only &mdash; not medical advice. Checked by a registered pharmacist in Japan.</p>
       </div>
+      <div class="body">
+        <div class="row"><div><div class="en">Pain &amp; Fever</div><div class="ja">痛み・熱</div></div><span class="chev">›</span></div>
+        <div class="row"><div><div class="en">Cold &amp; Flu</div><div class="ja">かぜ</div></div><span class="chev">›</span></div>
+        <div class="row"><div><div class="en">Stomach</div><div class="ja">胃腸</div></div><span class="chev">›</span></div>
+        <div class="row"><div><div class="en">Allergy</div><div class="ja">アレルギー</div></div><span class="chev">›</span></div>
+        <div class="divider"><span>Not sure what to look for?</span></div>
+        <div class="cta">Ask the pharmacist</div>
+      </div>
+      <div class="foot">Information only — not medical advice. Facts come from manufacturers' package inserts and are checked by a registered pharmacist in Japan…</div>
     </div>
-    <p class="frame-note">見出しから「相当する薬を探す」という言い方を外した。<b>棚を読むためのガイド</b>だと最初に宣言する。候補ブランドは豪州で実際に使われている5件だけ。</p>
+    <div class="cap">
+      <span class="n">1</span>
+      <div class="t">ホーム</div>
+      <div class="d">検索窓を廃止し、指示を1つに。第2の入口は<b>「Not sure what to look for?」という問いかけとセット</b>で置く。これがないと気づかれない。</div>
+    </div>
   </div>
 
-  <!-- 2 -->
-  <div class="frame">
-    <div class="frame-label"><span class="frame-num">02</span><span class="frame-name">Results</span></div>
-    <div class="device">
-      <div class="statusbar"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
-      <div class="view">
-        <div class="brandbar"><span class="backlink">&larr; Search</span><span class="brandmark">Panadol</span></div>
-
-        <div class="notsold">
-          <div class="notsold-t">Panadol isn&#39;t sold in Japan.</div>
-          <div class="notsold-d">You won&#39;t find the box here, but the ingredient is on the shelf.</div>
+  <!-- 2 CATEGORY -->
+  <div class="col">
+    <div class="phone">
+      <div class="bar"><span class="back">‹</span><div><h2>Pain &amp; Fever</h2><div class="sub">痛み・熱</div></div></div>
+      <div class="body">
+        <div class="pcard">
+          <div class="nm">タイレノールA</div>
+          <div class="ro">Tylenol A</div>
+          <div><span class="same">Same as Panadol</span></div>
         </div>
-
-        <div class="finding">
-          <div class="finding-main">Panadol contains <span class="chem">paracetamol</span>.</div>
+        <div class="pcard">
+          <div class="nm">イブA錠</div>
+          <div class="ro">EVE A</div>
+          <div><span class="same">Same as Nurofen</span></div>
         </div>
-
-        <span class="label">Contains paracetamol</span>
-        <div class="result">
-          <div class="result-ja">タイレノールA</div>
-          <div class="result-ro">Tylenol A</div>
-          <div class="result-ing"><span class="hit">Paracetamol</span> only</div>
-          <span class="tag tag-ok">Class 2 &middot; take from shelf</span>
+        <div class="pcard">
+          <div class="nm">バファリンA</div>
+          <div class="ro">Bufferin A</div>
+          <div><span class="same">Same as Aspro</span></div>
         </div>
-
-        <p class="disclaimer">We list what each box contains, not which one to take. Ask the pharmacist at the counter.</p>
+        <div class="pcard">
+          <div class="nm">ロキソニンS</div>
+          <div class="ro">Loxonin S</div>
+          <div><span class="tag stop">Pharmacist required</span></div>
+        </div>
       </div>
     </div>
-    <p class="frame-note">豪州向けだからこそ成立する画面。<b>「Panadolは日本にない」を先に言い切る</b>ことが、棚を探し続けずに済ませる最大の価値になる。「同系統」の欄は消えた。</p>
+    <div class="cap">
+      <span class="n">2</span>
+      <div class="t">カテゴリ一覧 ← 並び順が設計項目</div>
+      <div class="d">Panadol と同成分のタイレノールAを先頭に、<b>夜に買えないロキソニンSを最後に</b>置く。<b>ブランド対応は入口ではなくラベルに降格</b>させた。</div>
+    </div>
   </div>
 
-  <!-- 3 -->
-  <div class="frame">
-    <div class="frame-label"><span class="frame-num">03</span><span class="frame-name">Product</span></div>
-    <div class="device">
-      <div class="statusbar"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
-      <div class="view">
-        <div class="brandbar"><span class="backlink">&larr; Pain &amp; Fever</span><span class="brandmark">Product</span></div>
-
-        <div class="shelfcard">
-          <div class="shelfcard-hint">Match this on the shelf</div>
-          <div class="shelfcard-body">
-            <div class="name-ja">ロキソニンS</div>
-            <div class="name-ro">Loxonin S</div>
-            <div class="name-en">Pain &amp; fever relief</div>
-          </div>
+  <!-- 3 PRODUCT -->
+  <div class="col">
+    <div class="phone">
+      <div class="bar"><span class="back">‹</span><div><h2>Pain &amp; Fever</h2><div class="sub">back to the list</div></div></div>
+      <div class="body">
+        <div class="shelf">
+          <div class="hint2">MATCH THIS ON THE SHELF</div>
+          <div class="big">ロキソニンS</div>
+          <div class="ro2">Loxonin S</div>
         </div>
-
-        <div class="cautionbar">
-          <div class="cautionbar-t">Class 1 medicine <span class="ja">第1類医薬品</span></div>
-          <div class="cautionbar-d">Like Pharmacist Only (S3) at home &mdash; a pharmacist has to hand it to you. Many shops have no pharmacist on duty in the evening.</div>
+        <div class="stopbar">
+          <div class="t">Class 1 · pharmacist required</div>
+          <div class="d">Like Pharmacist Only (S3) at home. Many shops have no pharmacist on duty in the evening.</div>
         </div>
-
-        <div class="ingblock">
-          <span class="label">Active ingredient</span>
-          <div class="val">Loxoprofen</div>
+        <div class="field">
+          <div class="lb">ACTIVE INGREDIENT</div>
+          <div class="vl">Loxoprofen</div>
         </div>
-
-        <div class="askline">
-          <b>Ask the pharmacist</b> if you are pregnant, taking other medicine, or under 15.
-        </div>
-
-        <p class="disclaimer">Source: manufacturer&#39;s package insert. Checked 2026-08-20.</p>
+        <div class="samebar">Not sold in Australia. <b>Nurofen</b> and <b>Panadol</b> have different ingredients.</div>
       </div>
+      <div class="fs"><div class="b">‹ Back to Pain &amp; Fever</div></div>
     </div>
-    <p class="frame-note">第1類を <b>S3 に例えられる</b>のがペルソナを絞った成果。英語圏一般向けなら制度の説明から始める必要があった。薬効分類（NSAID）は「同系統」廃止に伴い削除。</p>
+    <div class="cap">
+      <span class="n">3</span>
+      <div class="t">商品詳細 ← 戻る導線を2箇所</div>
+      <div class="d">ヘッダーと画面下の両方に戻り先を明示。<b>行き止まりを作らない。</b>ブランド情報はここで初めて出す（確認材料として）。</div>
+    </div>
   </div>
 
-  <!-- 4 -->
-  <div class="frame">
-    <div class="frame-label"><span class="frame-num">04</span><span class="frame-name">Phrases</span></div>
-    <div class="device">
-      <div class="statusbar"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
-      <div class="view">
-        <div class="brandbar"><span class="backlink">&larr; Home</span><span class="brandmark">Phrases</span></div>
-
-        <div class="phrase-hint">
-          <div class="phrase-hint-t">Show this screen to the pharmacist.</div>
-          <div class="phrase-hint-d">No need to say it out loud &mdash; just point at the line.</div>
-        </div>
-
-        <div class="pgroup">
-          <span class="label">Your symptoms</span>
-          <div class="prow">
-            <div class="prow-en">I have a fever</div>
-            <div class="prow-ja">熱があります</div>
-          </div>
-          <div class="prow">
-            <div class="prow-en">I have a dry cough</div>
-            <div class="prow-ja">乾いた咳が出ます</div>
-          </div>
-          <div class="prow">
-            <div class="prow-en">I have a cough with phlegm</div>
-            <div class="prow-ja">痰のからむ咳が出ます</div>
-          </div>
-        </div>
-
-        <div class="pgroup">
-          <span class="label">About you</span>
-          <div class="prow">
-            <div class="prow-en">I am pregnant</div>
-            <div class="prow-ja">妊娠しています</div>
-          </div>
-          <div class="prow">
-            <div class="prow-en">I am taking other medicine</div>
-            <div class="prow-ja">ほかに薬を飲んでいます</div>
-          </div>
-        </div>
-
-        <div class="pgroup">
-          <span class="label">Ask the pharmacist</span>
-          <div class="prow">
-            <div class="prow-en">Should I see a doctor?</div>
-            <div class="prow-ja">病院に行ったほうがいいですか？</div>
-          </div>
-        </div>
-
-        <p class="disclaimer">This page does not suggest any product. It only helps you talk to the pharmacist.</p>
+  <!-- 4 STEP 1 -->
+  <div class="col">
+    <div class="phone">
+      <div class="bar"><span class="back">‹</span><h2>Ask the pharmacist</h2></div>
+      <div class="body">
+        <div class="step">1 / 3 &nbsp;Symptoms</div>
+        <div class="hint">Select everything that applies</div>
+        <div class="chip on"><span class="box"></span>Sore throat</div>
+        <div class="chip on"><span class="box"></span>Dry cough</div>
+        <div class="chip"><span class="box"></span>Cough with phlegm</div>
+        <div class="chip"><span class="box"></span>Runny or blocked nose</div>
+        <div class="chip on"><span class="box"></span>No fever</div>
+        <div class="alert">If you have trouble breathing, severe chest pain, or feel confused, go to a hospital rather than a chemist.</div>
       </div>
+      <div class="fs"><div class="a">Next</div></div>
     </div>
-    <p class="frame-note">英語が小さく、<b>日本語が最大</b>。読ませるのではなく見せるための画面。「About you」は薬剤師が判断するために最も必要な情報なので独立させた。<b>商品データとは一切つながない。</b></p>
+    <div class="cap">
+      <span class="n">4</span>
+      <div class="t">症状（複数選択）</div>
+      <div class="d">日常語のみ。赤枠は<b>選択内容に関わらず常時表示</b>の固定文。条件分岐にしない（判定は医療判断になる）。</div>
+    </div>
+  </div>
+
+  <!-- 5 STEP 2 -->
+  <div class="col">
+    <div class="phone">
+      <div class="bar"><span class="back">‹</span><h2>Ask the pharmacist</h2></div>
+      <div class="body">
+        <div class="step">2 / 3 &nbsp;How long</div>
+        <div class="hint">Choose one</div>
+        <div class="chip"><span class="box rd"></span>Since today</div>
+        <div class="chip"><span class="box rd"></span>Since yesterday</div>
+        <div class="chip on"><span class="box rd"></span>2–3 days</div>
+        <div class="chip"><span class="box rd"></span>About a week</div>
+        <div class="chip"><span class="box rd"></span>More than 2 weeks</div>
+      </div>
+      <div class="fs"><div class="a">Next</div></div>
+    </div>
+    <div class="cap">
+      <span class="n">5</span>
+      <div class="t">期間（単一選択）</div>
+      <div class="d">薬剤師が最も知りたい情報。豪州版と同じ設計。タップで自動的に次へ進めてよい。</div>
+    </div>
+  </div>
+
+  <!-- 6 STEP 3 -->
+  <div class="col">
+    <div class="phone">
+      <div class="bar"><span class="back">‹</span><h2>Ask the pharmacist</h2></div>
+      <div class="body">
+        <div class="step">3 / 3 &nbsp;Anything to mention</div>
+        <div class="hint">Skip if none apply</div>
+        <div class="chip on"><span class="box"></span>Taking other medicine</div>
+        <div class="chip"><span class="box"></span>Pregnant or breastfeeding</div>
+        <div class="chip"><span class="box"></span>I have a drug allergy</div>
+        <div class="chip on"><span class="box"></span>Prefer non-drowsy</div>
+        <div class="chip"><span class="box"></span>Hard to swallow tablets</div>
+      </div>
+      <div class="fs"><div class="a">Make the card</div></div>
+    </div>
+    <div class="cap">
+      <span class="n">6</span>
+      <div class="t">状況・希望（複数選択）</div>
+      <div class="d">全項目スキップ可。ここで集めた情報は<b>端末内のみで保持し、保存も送信もしない。</b></div>
+    </div>
+  </div>
+
+  <!-- 7 CARD -->
+  <div class="col">
+    <div class="phone">
+      <div class="bar"><span class="back">‹</span><h2>Show this to the pharmacist</h2></div>
+      <div class="body">
+        <div class="jacard">
+          <p>のどが痛く、乾いた咳が出ます。熱はありません。</p>
+          <p>2〜3日前からです。</p>
+          <p>ほかに薬を飲んでいます。</p>
+          <p>眠くならないものを希望します。</p>
+          <p class="ask">おすすめを教えていただけますか？</p>
+          <p class="note">日本語が分かりません。お答えを書くか、商品を見せてください。</p>
+        </div>
+        <div class="encheck">
+          <b>WHAT IT SAYS</b>
+          I have a sore throat and a dry cough, no fever. It started 2–3 days ago. I'm taking other medicine. I'd prefer something non-drowsy. / I don't understand Japanese — please write your answer or show me the product.
+        </div>
+      </div>
+      <div class="fs"><div class="a">Full screen</div><div class="b">Start over</div></div>
+    </div>
+    <div class="cap">
+      <span class="n">7</span>
+      <div class="t">完成カード ← 日本語が主役</div>
+      <div class="d">豪州版の鏡像。<b>最後の1文が双方向化の要。</b>豪州人は日本語が全く読めないので「書いてください」だけでなく<b>「商品を見せてください」</b>が要る。</div>
+    </div>
   </div>
 
 </div>
