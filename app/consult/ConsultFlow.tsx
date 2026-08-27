@@ -146,14 +146,17 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
 
       {step === "card" && (
         <>
-          <div className="jacard">
-            {selected.map((o) => (
-              <p key={o.slug}>{o.text_ja}</p>
-            ))}
-            <p className="request">おすすめを教えていただけますか？</p>
-            <p className="closing">
-              日本語が分かりません。お答えを書くか、商品を見せてください。
-            </p>
+          <div className="placard jacard">
+            <div className="ph">薬剤師の方へ / TO THE PHARMACIST</div>
+            <div className="pb">
+              {selected.map((o) => (
+                <p key={o.slug}>{o.text_ja}</p>
+              ))}
+              <p className="req">おすすめを教えていただけますか？</p>
+              <p className="cl">
+                日本語が分かりません。お答えを書くか、商品を見せてください。
+              </p>
+            </div>
           </div>
 
           <div className="encheck">

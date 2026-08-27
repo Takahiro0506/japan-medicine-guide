@@ -45,18 +45,21 @@ export default async function ProductPage({
         </div>
       </div>
 
-      <div className="shelf">
-        <div className="hint2">MATCH THIS ON THE SHELF</div>
-        <div className="big">{product.name_ja}</div>
-        <div className="ro2">{product.name_romaji}</div>
+      <div className="placard">
+        <div className="ph">MATCH THIS ON THE SHELF</div>
+        <div className="pb">
+          <div className="big">{product.name_ja}</div>
+          <div className="ro2">{product.name_romaji}</div>
+          <div className="en2">{product.summary_en}</div>
+        </div>
       </div>
 
       {isClass1 && (
-        <div className="stopbar">
-          <div className="t">Class 1 &middot; pharmacist required</div>
+        <div className="k1row">
+          <span className="kbox k1">第1類</span>
           <div className="d">
-            Like Pharmacist Only (S3) at home. Many shops have no pharmacist on duty in the
-            evening.
+            Pharmacist required. Like <b>Pharmacist Only (S3)</b> at home. Many shops have no
+            pharmacist in the evening.
           </div>
         </div>
       )}

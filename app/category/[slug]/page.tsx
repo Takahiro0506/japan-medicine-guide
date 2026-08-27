@@ -47,12 +47,13 @@ export default async function CategoryPage({
 
         return (
           <Link className="pcard" href={`/products/${product.slug}`} key={product.slug}>
-            <div className="nm">{product.name_ja}</div>
+            {sameAs && <div className="samechip">Same as {sameAs.name}</div>}
             <div className="ro">{product.name_romaji}</div>
-            {(sameAs || isClass1) && (
-              <div className="badges">
-                {sameAs && <span className="same">Same as {sameAs.name}</span>}
-                {isClass1 && <span className="tag stop">Pharmacist required</span>}
+            <div className="nm">{product.name_ja}</div>
+            {isClass1 && (
+              <div className="meta">
+                <span className="kbox k1">第1類</span>
+                <span className="req">Pharmacist required</span>
               </div>
             )}
           </Link>

@@ -3,6 +3,16 @@ import { getCategories } from "@/lib/data";
 
 export const dynamic = "force-static";
 
+// 駅ナンバリング風の2文字符号。categories テーブルには持たせず、ここで固定する
+const CATEGORY_CODE: Record<string, string> = {
+  "pain-fever": "PF",
+  "cold-flu": "CF",
+  stomach: "ST",
+  allergy: "AL",
+  skin: "SK",
+  "eye-drops": "EY",
+};
+
 export default async function HomePage() {
   const categories = await getCategories();
 
@@ -16,12 +26,13 @@ export default async function HomePage() {
       </div>
 
       {categories.map((category) => (
-        <Link className="row" href={`/category/${category.slug}`} key={category.slug}>
-          <div>
+        <Link className="sign" href={`/category/${category.slug}`} key={category.slug}>
+          <div className="code">{CATEGORY_CODE[category.slug] ?? "??"}</div>
+          <div className="tx">
             <div className="en">{category.name_en}</div>
             <div className="ja">{category.name_ja}</div>
           </div>
-          <span className="chev">&rsaquo;</span>
+          <div className="ar">&rarr;</div>
         </Link>
       ))}
 

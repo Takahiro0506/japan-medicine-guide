@@ -560,30 +560,52 @@ body {
   margin-top: 2px;
 }
 
-.v2 .row {
+.v2 .sign {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 11px;
   background: var(--v2-card);
   border: 1px solid var(--v2-border);
   border-radius: 9px;
-  padding: 14px 16px;
-  margin-bottom: 8px;
+  padding: 11px 12px;
+  margin-bottom: 7px;
   text-decoration: none;
   color: inherit;
 }
-.v2 .row .en {
-  font-size: 14px;
-  font-weight: 500;
-}
-.v2 .row .ja {
+.v2 .sign .code {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background: var(--v2-accent);
+  color: #fff;
   font-size: 11px;
-  color: var(--v2-ink-3);
-  margin-top: 2px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.v2 .row .chev {
+.v2 .sign .tx {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.v2 .sign .en {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.v2 .sign .ja {
+  font-size: 10.5px;
   color: var(--v2-ink-3);
-  font-size: 15px;
+  margin-top: 3px;
+  letter-spacing: 0.02em;
+}
+.v2 .sign .ar {
+  flex: 0 0 auto;
+  color: var(--v2-accent);
+  font-size: 14px;
 }
 
 .v2 .divider {
@@ -625,111 +647,123 @@ body {
   border-top: 1px solid var(--v2-border);
 }
 
+.v2 .kbox {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  white-space: nowrap;
+  border: 1.5px solid var(--v2-ink);
+  border-radius: 2px;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.v2 .kbox.k1 {
+  border-color: var(--v2-stop);
+  color: var(--v2-stop);
+  background: var(--v2-stop-soft);
+}
+
 .v2 .pcard {
   display: block;
   background: var(--v2-card);
   border: 1px solid var(--v2-border);
   border-radius: 9px;
-  padding: 14px 15px;
-  margin-bottom: 9px;
+  padding: 12px 13px;
+  margin-bottom: 8px;
   text-decoration: none;
   color: inherit;
 }
-.v2 .pcard .nm {
-  font-size: 17px;
+.v2 .samechip {
+  display: inline-block;
+  font-family: var(--v2-font);
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.01em;
-  line-height: 1.25;
-}
-.v2 .pcard .ro {
-  font-size: 12px;
-  color: var(--v2-ink-2);
-  margin-top: 3px;
-}
-.v2 .pcard .badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 9px;
-}
-.v2 .pcard .same {
-  display: inline-block;
-  font-family: var(--v2-font);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: normal;
   text-transform: none;
-  color: var(--v2-accent);
-  background: var(--v2-accent-soft);
+  color: #fff;
+  background: var(--v2-accent);
   border: none;
   border-radius: 4px;
-  padding: 3px 8px;
-  margin-top: 0;
+  padding: 3px 9px;
+  margin-bottom: 9px;
 }
-.v2 .pcard .tag {
-  display: inline-block;
-  font-family: var(--v2-font);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: normal;
-  text-transform: none;
+.v2 .pcard .ro {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.v2 .pcard .nm {
+  font-size: 12.5px;
   color: var(--v2-ink-2);
-  background: none;
-  border: 1px solid var(--v2-border);
-  border-radius: 4px;
-  padding: 3px 8px;
-  margin-top: 0;
+  margin-top: 4px;
+  letter-spacing: 0.02em;
 }
-.v2 .pcard .tag.stop {
+.v2 .pcard .meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.v2 .pcard .req {
+  font-size: 11px;
   color: var(--v2-stop);
-  border-color: #e4c4ba;
-  background: var(--v2-stop-soft);
+  font-weight: 600;
 }
 
-.v2 .shelf {
+.v2 .placard {
+  border: 2px solid var(--v2-ink);
+  border-radius: 4px;
   background: var(--v2-card);
-  border: 1px solid var(--v2-border);
-  border-radius: 10px;
-  padding: 22px 16px;
+  overflow: hidden;
+}
+.v2 .placard .ph {
+  background: var(--v2-ink);
+  color: #fff;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  padding: 5px 10px;
+}
+.v2 .placard .pb {
+  padding: 20px 14px;
   text-align: center;
 }
-.v2 .shelf .hint2 {
-  font-size: 10.5px;
-  color: var(--v2-ink-3);
-  letter-spacing: 0.06em;
-  margin-bottom: 14px;
-}
-.v2 .shelf .big {
-  font-size: 32px;
+.v2 .placard .big {
+  font-size: 31px;
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.15;
 }
-.v2 .shelf .ro2 {
-  font-size: 13px;
+.v2 .placard .ro2 {
+  font-size: 12px;
   color: var(--v2-ink-2);
   margin-top: 9px;
+  letter-spacing: 0.03em;
+}
+.v2 .placard .en2 {
+  font-size: 10.5px;
+  color: var(--v2-ink-3);
+  margin-top: 4px;
 }
 
-.v2 .stopbar {
+.v2 .k1row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
   background: var(--v2-stop-soft);
   border: 1px solid #e4c4ba;
   border-left-width: 3px;
   border-radius: 6px;
-  padding: 12px 13px;
-  margin-top: 12px;
+  padding: 10px 11px;
+  margin-top: 11px;
 }
-.v2 .stopbar .t {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--v2-stop);
-}
-.v2 .stopbar .d {
-  font-size: 11px;
+.v2 .k1row .d {
+  font-size: 10.5px;
   color: var(--v2-stop);
   line-height: 1.6;
-  margin-top: 6px;
-  opacity: 0.92;
 }
 
 .v2 .field {
@@ -738,26 +772,26 @@ body {
   padding: 0;
   gap: 0;
   align-items: unset;
-  margin-top: 16px;
+  margin-top: 14px;
 }
 .v2 .field .lb {
-  font-size: 10.5px;
+  font-size: 9.5px;
   color: var(--v2-ink-3);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 .v2 .field .vl {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
-  margin-top: 6px;
+  margin-top: 5px;
 }
 
 .v2 .samebar {
   background: var(--v2-card);
   border: 1px solid var(--v2-border);
   border-radius: 8px;
-  padding: 11px 13px;
-  margin-top: 14px;
-  font-size: 12px;
+  padding: 10px 12px;
+  margin-top: 12px;
+  font-size: 11.5px;
   line-height: 1.6;
   color: var(--v2-ink-2);
 }
@@ -891,45 +925,44 @@ body {
   margin-top: 12px;
 }
 
-.v2 .jacard {
-  background: var(--v2-card);
-  border: 1px solid var(--v2-border);
-  border-radius: 10px;
-  padding: 15px;
+.v2 .jacard .pb {
+  padding: 15px 14px;
+  text-align: left;
 }
 .v2 .jacard p {
-  font-size: 16px;
-  line-height: 1.8;
-  margin-bottom: 10px;
+  font-size: 15px;
+  line-height: 1.85;
+  margin-bottom: 9px;
   font-weight: 500;
 }
-.v2 .jacard .request {
+.v2 .jacard .req {
   font-weight: 700;
 }
-.v2 .jacard .closing {
-  font-size: 14px;
+.v2 .jacard .cl {
+  font-size: 13.5px;
   line-height: 1.75;
   border-top: 1px solid var(--v2-border);
-  padding-top: 11px;
-  margin-top: 12px;
+  padding-top: 10px;
+  margin-top: 11px;
   margin-bottom: 0;
   font-weight: 600;
 }
 
 .v2 .encheck {
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--v2-ink-2);
-  line-height: 1.65;
+  line-height: 1.6;
   background: var(--v2-card);
   border: 1px solid var(--v2-border);
   border-radius: 8px;
-  padding: 10px 12px;
+  padding: 9px 11px;
   margin-top: 9px;
 }
 .v2 .encheck b {
   display: block;
   color: var(--v2-ink-3);
-  font-size: 10px;
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
   font-weight: 600;
   margin-bottom: 4px;
 }
