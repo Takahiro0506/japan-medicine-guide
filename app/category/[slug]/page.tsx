@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCategories, getForeignBrands, getProductsByCategory } from "@/lib/data";
+import { CLASS_ONE_BADGE_EN, CLASS_ONE_MARK } from "@/lib/otcClass";
 
 export const dynamicParams = false;
 
@@ -76,8 +77,8 @@ export default async function CategoryPage({
             </div>
             {isClass1 && (
               <div className="meta">
-                <span className="kbox k1">第1類</span>
-                <span className="req">Pharmacist required</span>
+                <span className="kbox k1">{CLASS_ONE_MARK}</span>
+                <span className="req">{CLASS_ONE_BADGE_EN}</span>
               </div>
             )}
           </Link>

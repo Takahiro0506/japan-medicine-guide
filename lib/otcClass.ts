@@ -17,3 +17,8 @@ const OTC_CLASS_INFO: Record<OtcClass, OtcClassInfo> = {
 export function getOtcClassInfo(otcClass: OtcClass): OtcClassInfo {
   return OTC_CLASS_INFO[otcClass];
 }
+
+// 第1類の画面表示は英語のみ。色以外の合図として ▲ を併記する（CLAUDE.md アクセシビリティ節）
+export const CLASS_ONE_MARK = "▲";
+export const CLASS_ONE_BADGE_EN = "Pharmacist required";
+export const CLASS_ONE_WARNING_EN = "Class 1 · pharmacist required";

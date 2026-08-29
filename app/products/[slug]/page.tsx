@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCategories, getForeignBrands, getProductsSearchIndex } from "@/lib/data";
-import { getOtcClassInfo } from "@/lib/otcClass";
+import { CLASS_ONE_MARK, CLASS_ONE_WARNING_EN, getOtcClassInfo } from "@/lib/otcClass";
 
 export const dynamicParams = false;
 
@@ -84,9 +84,9 @@ export default async function ProductPage({
 
       {isClass1 && (
         <div className="k1row">
-          <span className="kbox k1">第1類</span>
+          <span className="kbox k1">{CLASS_ONE_MARK}</span>
           <div className="d">
-            Pharmacist required. Like <b>Pharmacist Only (S3)</b> at home. Many shops have no
+            {CLASS_ONE_WARNING_EN}. Like <b>Pharmacist Only (S3)</b> at home. Many shops have no
             pharmacist in the evening.
           </div>
         </div>
