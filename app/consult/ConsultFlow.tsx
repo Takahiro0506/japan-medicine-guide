@@ -66,7 +66,7 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
   }
 
   return (
-    <main className="v2">
+    <main className="shell">
       <div className="bar">
         {step === 1 ? (
           <Link className="back" href="/">

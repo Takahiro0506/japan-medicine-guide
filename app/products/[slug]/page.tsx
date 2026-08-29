@@ -34,7 +34,7 @@ export default async function ProductPage({
       : undefined;
 
   return (
-    <main className="v2">
+    <main className="shell">
       <div className="bar">
         <Link className="back" href={`/category/${product.category}`}>
           &lsaquo;

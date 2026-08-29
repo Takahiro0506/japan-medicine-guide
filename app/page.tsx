@@ -42,7 +42,7 @@ export default async function HomePage() {
   const categories = await getCategories();
 
   return (
-    <main className="v2">
+    <main className="shell">
       <div className="hero">
         <h1>Japan Medicine Guide</h1>
         <p>What are you looking for?</p>

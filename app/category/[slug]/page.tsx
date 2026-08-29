@@ -27,7 +27,7 @@ export default async function CategoryPage({
   }
 
   return (
-    <main className="v2">
+    <main className="shell">
       <div className="bar">
         <Link className="back" href="/">
           &lsaquo;

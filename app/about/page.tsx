@@ -15,7 +15,7 @@ export default async function AboutPage() {
   const stats = await getAboutStats();
 
   return (
-    <main className="v2">
+    <main className="shell">
       <div className="bar">
         <Link className="back" href="/">
           &lsaquo;
