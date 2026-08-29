@@ -560,28 +560,44 @@ body {
   margin-top: 2px;
 }
 
+.v2 .hero {
+  text-align: center;
+  padding: 8px 0 24px;
+}
+.v2 .hero h1 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.v2 .hero p {
+  font-size: 13px;
+  color: var(--v2-ink-2);
+  margin-top: 6px;
+}
+
+.v2 .signlist {
+  background: var(--v2-card);
+  border: 1px solid var(--v2-border);
+  border-radius: 9px;
+  overflow: hidden;
+}
 .v2 .sign {
   display: flex;
   align-items: center;
   gap: 11px;
-  background: var(--v2-card);
-  border: 1px solid var(--v2-border);
-  border-radius: 9px;
-  padding: 11px 12px;
-  margin-bottom: 7px;
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--v2-border);
   text-decoration: none;
   color: inherit;
 }
-.v2 .sign .code {
+.v2 .sign:last-child {
+  border-bottom: none;
+}
+.v2 .sign .ic {
   flex: 0 0 auto;
-  width: 30px;
-  height: 30px;
-  border-radius: 4px;
-  background: var(--v2-accent);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  width: 20px;
+  height: 20px;
+  color: var(--v2-ink-3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -604,8 +620,8 @@ body {
 }
 .v2 .sign .ar {
   flex: 0 0 auto;
-  color: var(--v2-accent);
-  font-size: 14px;
+  color: var(--v2-ink-3);
+  font-size: 16px;
 }
 
 .v2 .divider {
