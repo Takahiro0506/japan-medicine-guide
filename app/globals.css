@@ -501,6 +501,9 @@ body {
 .site-footer a:hover {
   color: var(--seal);
 }
+body.consult-card .site-footer {
+  display: none;
+}
 
 /* ============================================================
    v2 (2026-08-27〜) — 姉妹プロダクト（豪州版）の配色・書体を継承。

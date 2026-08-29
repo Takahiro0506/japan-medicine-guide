@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { ConsultOption } from "@/lib/data";
 
@@ -11,6 +11,15 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
   const [step1, setStep1] = useState<Set<string>>(new Set());
   const [step2, setStep2] = useState<string | null>(null);
   const [step3, setStep3] = useState<Set<string>>(new Set());
+
+  // 完成カード（薬剤師に見せる画面）ではAbout/Make a cardへの導線が不要なため
+  // 共通フッターを一時的に隠す。ページ離脱時は必ず戻す
+  useEffect(() => {
+    document.body.classList.toggle("consult-card", step === "card");
+    return () => {
+      document.body.classList.remove("consult-card");
+    };
+  }, [step]);
 
   const step1Items = options.filter((o) => o.step === 1);
   const step2Items = options.filter((o) => o.step === 2);
