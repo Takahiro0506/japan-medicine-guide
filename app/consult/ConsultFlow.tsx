@@ -6,6 +6,13 @@ import type { ConsultOption } from "@/lib/data";
 
 type Step = 1 | 2 | 3 | "card";
 
+const BACK_LABEL: Record<Step, string> = {
+  1: "Back to Home",
+  2: "Back to symptoms",
+  3: "Back to how long",
+  card: "Back to anything to mention",
+};
+
 export function ConsultFlow({ options }: { options: ConsultOption[] }) {
   const [step, setStep] = useState<Step>(1);
   const [step1, setStep1] = useState<Set<string>>(new Set());
@@ -69,11 +76,11 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
     <main className="shell">
       <div className="bar">
         {step === 1 ? (
-          <Link className="back" href="/">
+          <Link className="back" href="/" aria-label="Back to Home">
             &lsaquo;
           </Link>
         ) : (
-          <button type="button" className="back" onClick={goBack}>
+          <button type="button" className="back" onClick={goBack} aria-label={BACK_LABEL[step]}>
             &lsaquo;
           </button>
         )}
@@ -82,6 +89,9 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
 
       {step === 1 && (
         <>
+          <p className="lede">
+            Answer three quick questions to make a Japanese card for the pharmacist.
+          </p>
           <div className="step">1 / 3&nbsp;&nbsp;Symptoms</div>
           <div className="hint">Select everything that applies</div>
           {step1Items.map((o) => (
@@ -89,9 +99,10 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
               type="button"
               key={o.slug}
               className={`chip${step1.has(o.slug) ? " on" : ""}`}
+              aria-pressed={step1.has(o.slug)}
               onClick={() => toggleStep1(o.slug)}
             >
-              <span className="box" />
+              <span className="box" aria-hidden="true" />
               {o.text_en}
             </button>
           ))}
@@ -100,7 +111,12 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
             rather than a chemist.
           </div>
           <div className="fs">
-            <button type="button" className="a" disabled={step1.size === 0} onClick={() => setStep(2)}>
+            <button
+              type="button"
+              className="a"
+              disabled={step1.size === 0}
+              onClick={() => setStep(2)}
+            >
               Next
             </button>
           </div>
@@ -116,14 +132,15 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
               type="button"
               key={o.slug}
               className={`chip${step2 === o.slug ? " on" : ""}`}
+              aria-pressed={step2 === o.slug}
               onClick={() => selectStep2(o.slug)}
             >
-              <span className="box rd" />
+              <span className="box rd" aria-hidden="true" />
               {o.text_en}
             </button>
           ))}
           <div className="fs">
-            <button type="button" className="a" onClick={() => setStep(3)}>
+            <button type="button" className="a" disabled={step2 === null} onClick={() => setStep(3)}>
               Next
             </button>
           </div>
@@ -139,9 +156,10 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
               type="button"
               key={o.slug}
               className={`chip${step3.has(o.slug) ? " on" : ""}`}
+              aria-pressed={step3.has(o.slug)}
               onClick={() => toggleStep3(o.slug)}
             >
-              <span className="box" />
+              <span className="box" aria-hidden="true" />
               {o.text_en}
             </button>
           ))}
@@ -157,7 +175,7 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
         <>
           <div className="placard jacard">
             <div className="ph">薬剤師の方へ / TO THE PHARMACIST</div>
-            <div className="pb">
+            <div className="pb" lang="ja">
               {selected.map((o) => (
                 <p key={o.slug}>{o.text_ja}</p>
               ))}

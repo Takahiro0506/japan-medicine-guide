@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { supabase } from "@/lib/supabase";
 
 export const dynamic = "force-static";
+
+// 監修用ページ。検索結果に出さない（robots.ts の disallow と二重で防ぐ）
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 interface ReviewProductRow {
   slug: string;

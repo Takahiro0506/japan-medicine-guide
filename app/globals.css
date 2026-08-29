@@ -1,12 +1,12 @@
 :root {
-  --paper: #fbfaf7;
+  /* /review 専用。公開画面には出さない */
   --rule: #dcdfd8;
   --rule-2: #edefe9;
   --seal: #1e5f4e;
-  --sans: "IBM Plex Sans", "IBM Plex Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
-  --jp: "IBM Plex Sans JP", "IBM Plex Sans", "Hiragino Sans", "Noto Sans JP", sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --jp: "Hiragino Sans", "Noto Sans JP", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
+  /* 公開画面（/, /category, /products, /consult, /about）と共通フッター */
   --bg: #f1efe8;
   --card: #ffffff;
   --border: #d3d1c7;
@@ -14,7 +14,7 @@
   --accent-soft: #e9f0f7;
   --ink: #2b2a26;
   --ink-2: #6e6c64;
-  --ink-3: #9a978d;
+  --ink-3: #7a776c;
   --stop: #b4462f;
   --stop-soft: #fbf1ee;
   --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Yu Gothic",
@@ -28,10 +28,24 @@
 }
 
 body {
-  background: var(--paper);
+  background: var(--bg);
   color: var(--ink);
-  font-family: var(--sans);
+  font-family: var(--font);
   -webkit-font-smoothing: antialiased;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 /* ============================================================
@@ -138,17 +152,19 @@ body {
   margin: 0 auto;
   padding: 24px 16px 48px;
   display: flex;
-  gap: 16px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.04em;
+  gap: 20px;
+  font-family: var(--font);
+  font-size: 12.5px;
 }
 .site-footer a {
-  color: var(--ink-3);
+  color: var(--ink-2);
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 .site-footer a:hover {
-  color: var(--seal);
+  color: var(--accent);
 }
 body.consult-card .site-footer {
   display: none;
@@ -156,28 +172,32 @@ body.consult-card .site-footer {
 
 /* ============================================================
    全画面共通のページシェル（/, /category, /products, /consult, /about）
+   背景・文字色・書体は body から継承する（.page/.review-page と同じ考え方）
    ============================================================ */
 .shell {
   min-height: 100vh;
   max-width: 480px;
   margin: 0 auto;
   padding: 20px 16px 40px;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--font);
 }
 
 .shell .bar {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   padding-bottom: 14px;
   margin-bottom: 14px;
   border-bottom: 1px solid var(--border);
 }
 .shell .bar .back {
-  color: var(--ink-3);
-  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  margin-left: -10px;
+  color: var(--ink-2);
+  font-size: 22px;
   line-height: 1;
   text-decoration: none;
   background: none;
@@ -191,24 +211,55 @@ body.consult-card .site-footer {
   font-weight: 600;
 }
 .shell .bar .sub {
-  font-size: 12px;
+  font-size: 12.5px;
   color: var(--ink-2);
   margin-top: 2px;
 }
 
+.shell .lede {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.55;
+  margin: 2px 0 20px;
+}
+
 .shell .hero {
   text-align: center;
-  padding: 8px 0 24px;
+  padding: 4px 0 8px;
+}
+.shell .hero .eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 10px;
 }
 .shell .hero h1 {
-  font-size: 24px;
+  font-size: 25px;
   font-weight: 700;
   letter-spacing: -0.01em;
 }
 .shell .hero p {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.55;
+  margin-top: 10px;
+}
+
+.shell .intro {
+  margin: 30px 0 12px;
+}
+.shell .intro h2 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+.shell .intro p {
   font-size: 13px;
   color: var(--ink-2);
-  margin-top: 6px;
+  line-height: 1.5;
+  margin-top: 4px;
 }
 
 .shell .signlist {
@@ -221,6 +272,7 @@ body.consult-card .site-footer {
   display: flex;
   align-items: center;
   gap: 11px;
+  min-height: 44px;
   padding: 13px 14px;
   border-bottom: 1px solid var(--border);
   text-decoration: none;
@@ -233,7 +285,7 @@ body.consult-card .site-footer {
   flex: 0 0 auto;
   width: 20px;
   height: 20px;
-  color: var(--ink-3);
+  color: var(--ink-2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -249,7 +301,7 @@ body.consult-card .site-footer {
   line-height: 1.2;
 }
 .shell .sign .ja {
-  font-size: 10.5px;
+  font-size: 11.5px;
   color: var(--ink-3);
   margin-top: 3px;
   letter-spacing: 0.02em;
@@ -257,14 +309,14 @@ body.consult-card .site-footer {
 .shell .sign .ar {
   flex: 0 0 auto;
   color: var(--ink-3);
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .shell .divider {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 20px 2px 13px;
+  margin: 34px 2px 14px;
 }
 .shell .divider::before,
 .shell .divider::after {
@@ -274,29 +326,47 @@ body.consult-card .site-footer {
   background: var(--border);
 }
 .shell .divider span {
-  font-size: 12px;
+  font-size: 12.5px;
   color: var(--ink-2);
 }
 
 .shell .cta {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
   background: var(--accent);
   color: #fff;
   border-radius: 9px;
   padding: 15px;
   text-align: center;
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 600;
   text-decoration: none;
 }
+.shell .cta-sub {
+  font-size: 12.5px;
+  color: var(--ink-2);
+  text-align: center;
+  line-height: 1.5;
+  margin-top: 10px;
+}
 
 .shell .foot {
-  font-size: 11px;
-  color: var(--ink-3);
+  font-size: 12px;
+  color: var(--ink-2);
   line-height: 1.6;
   margin-top: 28px;
   padding-top: 14px;
   border-top: 1px solid var(--border);
+}
+.shell .foot + .foot {
+  margin-top: 8px;
+  padding-top: 0;
+  border-top: none;
+}
+.shell .foot a {
+  color: var(--accent);
 }
 
 .shell .kbox {
@@ -322,7 +392,7 @@ body.consult-card .site-footer {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 9px;
-  padding: 12px 13px;
+  padding: 14px;
   margin-bottom: 8px;
   text-decoration: none;
   color: inherit;
@@ -334,8 +404,8 @@ body.consult-card .site-footer {
   font-weight: 700;
   letter-spacing: 0.01em;
   text-transform: none;
-  color: #fff;
-  background: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
   border: none;
   border-radius: 4px;
   padding: 3px 9px;
@@ -377,10 +447,10 @@ body.consult-card .site-footer {
   color: #fff;
   font-size: 9px;
   letter-spacing: 0.12em;
-  padding: 5px 10px;
+  padding: 6px 10px;
 }
 .shell .placard .pb {
-  padding: 20px 14px;
+  padding: 22px 14px;
   text-align: center;
 }
 .shell .placard .big {
@@ -396,7 +466,7 @@ body.consult-card .site-footer {
   letter-spacing: 0.03em;
 }
 .shell .placard .en2 {
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--ink-3);
   margin-top: 4px;
 }
@@ -409,47 +479,46 @@ body.consult-card .site-footer {
   border: 1px solid #e4c4ba;
   border-left-width: 3px;
   border-radius: 6px;
-  padding: 10px 11px;
-  margin-top: 11px;
+  padding: 11px;
+  margin-top: 12px;
 }
 .shell .k1row .d {
-  font-size: 10.5px;
+  font-size: 12.5px;
   color: var(--stop);
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 .shell .field {
-  display: block;
-  border: none;
-  padding: 0;
-  gap: 0;
-  align-items: unset;
-  margin-top: 14px;
+  margin-top: 20px;
 }
 .shell .field .lb {
-  font-size: 9.5px;
-  color: var(--ink-3);
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-2);
+  letter-spacing: 0.06em;
 }
 .shell .field .vl {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  margin-top: 5px;
+  margin-top: 6px;
 }
 
 .shell .samebar {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 10px 12px;
-  margin-top: 12px;
-  font-size: 11.5px;
-  line-height: 1.6;
+  padding: 11px 12px;
+  margin-top: 14px;
+  font-size: 12.5px;
+  line-height: 1.55;
   color: var(--ink-2);
 }
 .shell .samebar b {
   color: var(--ink);
   font-weight: 600;
+}
+.shell .samebar .caveat {
+  margin-top: 6px;
 }
 
 .shell .note {
@@ -458,8 +527,8 @@ body.consult-card .site-footer {
   border-radius: 8px;
   padding: 12px 13px;
   margin-top: 14px;
-  font-size: 11.5px;
-  line-height: 1.6;
+  font-size: 12.5px;
+  line-height: 1.55;
   color: var(--ink-2);
 }
 .shell .note b {
@@ -471,10 +540,13 @@ body.consult-card .site-footer {
   margin-top: 22px;
 }
 .shell .fs .b {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
   text-align: center;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 13.5px;
+  font-weight: 500;
   color: var(--ink-2);
   border: 1px solid var(--border);
   border-radius: 9px;
@@ -485,9 +557,12 @@ body.consult-card .site-footer {
   cursor: pointer;
 }
 .shell .fs .a {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
   text-align: center;
-  font-size: 13px;
+  font-size: 14.5px;
   font-weight: 600;
   color: #fff;
   background: var(--accent);
@@ -499,41 +574,43 @@ body.consult-card .site-footer {
   cursor: pointer;
 }
 .shell .fs .a[disabled] {
-  opacity: 0.4;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
 .shell .step {
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 600;
   color: var(--ink-2);
-  margin-bottom: 9px;
+  margin-bottom: 4px;
   letter-spacing: 0.02em;
 }
 .shell .hint {
-  font-size: 11px;
-  color: var(--ink-3);
-  margin: -3px 0 10px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+  margin: 0 0 14px;
 }
 
 .shell .chip {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
+  min-height: 44px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 11px 13px;
-  font-size: 13px;
-  margin-bottom: 7px;
+  padding: 12px 13px;
+  font-size: 13.5px;
+  margin-bottom: 8px;
   width: 100%;
   text-align: left;
   cursor: pointer;
 }
 .shell .chip .box {
-  width: 15px;
-  height: 15px;
-  border: 1px solid var(--border);
-  border-radius: 3px;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -549,10 +626,10 @@ body.consult-card .site-footer {
 }
 .shell .chip.on .box::after {
   content: "";
-  width: 7px;
-  height: 4px;
-  border-left: 1.5px solid #fff;
-  border-bottom: 1.5px solid #fff;
+  width: 8px;
+  height: 5px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
   transform: rotate(-45deg);
   margin-top: -2px;
 }
@@ -561,8 +638,8 @@ body.consult-card .site-footer {
 }
 .shell .chip.on .box.rd::after {
   margin-top: 0;
-  width: 6px;
-  height: 3px;
+  width: 7px;
+  height: 4px;
 }
 
 .shell .alert {
@@ -570,67 +647,69 @@ body.consult-card .site-footer {
   border-left: 3px solid var(--stop);
   background: var(--card);
   border-radius: 6px;
-  padding: 9px 11px;
-  font-size: 10.5px;
-  color: var(--ink-2);
-  line-height: 1.6;
-  margin-top: 12px;
+  padding: 11px;
+  font-size: 12.5px;
+  color: var(--ink);
+  line-height: 1.55;
+  margin-top: 14px;
 }
 
 .shell .jacard .pb {
-  padding: 15px 14px;
+  padding: 16px 14px;
   text-align: left;
 }
 .shell .jacard p {
-  font-size: 15px;
-  line-height: 1.85;
-  margin-bottom: 9px;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 10px;
   font-weight: 500;
 }
 .shell .jacard .req {
   font-weight: 700;
 }
 .shell .jacard .cl {
-  font-size: 13.5px;
-  line-height: 1.75;
+  font-size: 14px;
+  line-height: 1.7;
   border-top: 1px solid var(--border);
-  padding-top: 10px;
-  margin-top: 11px;
+  padding-top: 11px;
+  margin-top: 12px;
   margin-bottom: 0;
   font-weight: 600;
 }
 
 .shell .encheck {
-  font-size: 10px;
+  font-size: 11.5px;
   color: var(--ink-2);
   line-height: 1.6;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 9px 11px;
-  margin-top: 9px;
+  background: none;
+  border: none;
+  padding: 0 2px;
+  margin-top: 14px;
 }
 .shell .encheck b {
   display: block;
   color: var(--ink-3);
-  font-size: 9.5px;
+  font-size: 10.5px;
   letter-spacing: 0.06em;
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .shell .about-section {
-  margin-top: 26px;
+  margin-top: 28px;
+}
+.shell .about-section:first-of-type {
+  margin-top: 8px;
 }
 .shell .about-section h3 {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.005em;
   margin-bottom: 8px;
 }
 .shell .about-section p {
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 13.5px;
+  line-height: 1.65;
   color: var(--ink-2);
 }
 .shell .about-section p + p {
@@ -641,8 +720,8 @@ body.consult-card .site-footer {
   padding-left: 18px;
 }
 .shell .about-section li {
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 13.5px;
+  line-height: 1.65;
   color: var(--ink-2);
   margin-top: 6px;
 }

@@ -1,7 +1,15 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getAboutStats } from "@/lib/data";
 
 export const dynamic = "force-static";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "How Japan Medicine Guide sources its facts, who checked them, and what this guide does not do.",
+  alternates: { canonical: "/about" },
+};
 
 function formatLongDate(iso: string) {
   return new Intl.DateTimeFormat("en-AU", {
@@ -17,7 +25,7 @@ export default async function AboutPage() {
   return (
     <main className="shell">
       <div className="bar">
-        <Link className="back" href="/">
+        <Link className="back" href="/" aria-label="Back to Home">
           &lsaquo;
         </Link>
         <h2>About</h2>

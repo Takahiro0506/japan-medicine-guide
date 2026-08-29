@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getCategories, getForeignBrands, getProductsByCategory } from "@/lib/data";
 
 export const dynamicParams = false;
@@ -7,6 +8,23 @@ export const dynamicParams = false;
 export async function generateStaticParams() {
   const categories = await getCategories();
   return categories.map((category) => ({ slug: category.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const categories = await getCategories();
+  const category = categories.find((item) => item.slug === slug);
+  if (!category) return {};
+
+  return {
+    title: `${category.name_en} medicines in Japan`,
+    description: `Japanese over-the-counter ${category.name_en.toLowerCase()} (${category.name_ja}) products, with active ingredients and legal class for each.`,
+    alternates: { canonical: `/category/${slug}` },
+  };
 }
 
 export default async function CategoryPage({
@@ -29,7 +47,7 @@ export default async function CategoryPage({
   return (
     <main className="shell">
       <div className="bar">
-        <Link className="back" href="/">
+        <Link className="back" href="/" aria-label="Back to Home">
           &lsaquo;
         </Link>
         <div>
@@ -37,6 +55,10 @@ export default async function CategoryPage({
           <div className="sub">{category.name_ja}</div>
         </div>
       </div>
+
+      <p className="lede">
+        Choose the exact product name on the box to check its active ingredients.
+      </p>
 
       {products.map((product) => {
         const sameAs =
@@ -49,7 +71,9 @@ export default async function CategoryPage({
           <Link className="pcard" href={`/products/${product.slug}`} key={product.slug}>
             {sameAs && <div className="samechip">Same as {sameAs.name}</div>}
             <div className="ro">{product.name_romaji}</div>
-            <div className="nm">{product.name_ja}</div>
+            <div className="nm" lang="ja">
+              {product.name_ja}
+            </div>
             {isClass1 && (
               <div className="meta">
                 <span className="kbox k1">第1類</span>

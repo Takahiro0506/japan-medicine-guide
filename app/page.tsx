@@ -1,8 +1,13 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Thermometer, Wind, Droplet, Flower, Bandage, Eye, Waves } from "lucide-react";
 import { getCategories } from "@/lib/data";
 
 export const dynamic = "force-static";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 // 湿布のマーク。lucide に該当アイコンがないためインラインSVGで自作する
 function PatchIcon({ size = 20, strokeWidth = 1.5 }: { size?: number; strokeWidth?: number }) {
@@ -44,8 +49,17 @@ export default async function HomePage() {
   return (
     <main className="shell">
       <div className="hero">
+        <div className="eyebrow">For visitors at a chemist in Japan</div>
         <h1>Japan Medicine Guide</h1>
-        <p>What are you looking for?</p>
+        <p>
+          Check what common Japanese medicines contain, or make a Japanese card to show the
+          pharmacist.
+        </p>
+      </div>
+
+      <div className="intro">
+        <h2>Check a medicine</h2>
+        <p>Choose a category, then match the Japanese product name on the box.</p>
       </div>
 
       <div className="signlist">
@@ -53,23 +67,30 @@ export default async function HomePage() {
           const Icon = CATEGORY_ICON[category.slug];
           return (
             <Link className="sign" href={`/category/${category.slug}`} key={category.slug}>
-              <div className="ic">{Icon && <Icon size={20} strokeWidth={1.5} />}</div>
+              <div className="ic" aria-hidden="true">
+                {Icon && <Icon size={20} strokeWidth={1.5} />}
+              </div>
               <div className="tx">
                 <div className="en">{category.name_en}</div>
                 <div className="ja">{category.name_ja}</div>
               </div>
-              <div className="ar">&rsaquo;</div>
+              <div className="ar" aria-hidden="true">
+                &rsaquo;
+              </div>
             </Link>
           );
         })}
       </div>
 
       <div className="divider">
-        <span>Can&#39;t explain it in Japanese?</span>
+        <span>Not sure what to look for?</span>
       </div>
       <Link className="cta" href="/consult">
-        Make a card in Japanese
+        Ask the pharmacist
       </Link>
+      <p className="cta-sub">
+        Make a Japanese card describing your symptoms to show at the counter.
+      </p>
 
       <div className="foot">
         Information only &mdash; not medical advice. Facts come from manufacturers&#39; package
