@@ -150,3 +150,29 @@ export async function getConsultOptions(): Promise<ConsultOption[]> {
     .returns<ConsultOption[]>();
   return data ?? [];
 }
+
+export interface AboutStats {
+  productCount: number;
+  categoryCount: number;
+  lastChecked: string | null;
+}
+
+export async function getAboutStats(): Promise<AboutStats> {
+  const [{ count: productCount }, { count: categoryCount }, { data: lastReviewed }] =
+    await Promise.all([
+      supabase.from("products").select("*", { count: "exact", head: true }),
+      supabase.from("categories").select("*", { count: "exact", head: true }),
+      supabase
+        .from("products")
+        .select("reviewed_at")
+        .not("reviewed_at", "is", null)
+        .order("reviewed_at", { ascending: false })
+        .limit(1),
+    ]);
+
+  return {
+    productCount: productCount ?? 0,
+    categoryCount: categoryCount ?? 0,
+    lastChecked: lastReviewed?.[0]?.reviewed_at ?? null,
+  };
+}
