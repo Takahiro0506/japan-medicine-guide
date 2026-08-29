@@ -135,13 +135,14 @@ export interface ConsultOption {
   slug: string;
   step: 1 | 2 | 3;
   text_en: string;
+  text_en_full: string;
   text_ja: string;
 }
 
 export async function getConsultOptions(): Promise<ConsultOption[]> {
   const { data } = await supabase
     .from("consult_options")
-    .select("slug, step, text_en, text_ja")
+    .select("slug, step, text_en, text_en_full, text_ja")
     .order("step", { ascending: true })
     .order("sort_order", { ascending: true })
     .returns<ConsultOption[]>();
