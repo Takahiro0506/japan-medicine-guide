@@ -9,12 +9,12 @@
   /* 公開画面（/, /category, /products, /consult, /about）と共通フッター */
   --bg: #f1efe8;
   --card: #ffffff;
-  --border: #d3d1c7;
+  --border: #c7c4b8;
+  --brand: #123f66;
   --accent: #185fa5;
   --accent-soft: #e9f0f7;
   --ink: #2b2a26;
-  --ink-2: #6e6c64;
-  --ink-3: #7a776c;
+  --ink-2: #63615a;
   --stop: #b4462f;
   --stop-soft: #fbf1ee;
   --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Yu Gothic",
@@ -75,7 +75,7 @@ button:focus-visible {
 .backlink {
   font-family: var(--mono);
   font-size: 10.5px;
-  color: var(--ink-3);
+  color: var(--ink-2);
   letter-spacing: 0.04em;
   text-decoration: none;
 }
@@ -232,7 +232,7 @@ body.consult-card .site-footer {
   font-weight: 600;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--ink-2);
   margin-bottom: 10px;
 }
 .shell .hero h1 {
@@ -302,13 +302,13 @@ body.consult-card .site-footer {
 }
 .shell .sign .ja {
   font-size: 11.5px;
-  color: var(--ink-3);
+  color: var(--ink-2);
   margin-top: 3px;
   letter-spacing: 0.02em;
 }
 .shell .sign .ar {
   flex: 0 0 auto;
-  color: var(--ink-3);
+  color: var(--ink-2);
   font-size: 17px;
 }
 
@@ -467,7 +467,7 @@ body.consult-card .site-footer {
 }
 .shell .placard .en2 {
   font-size: 11px;
-  color: var(--ink-3);
+  color: var(--ink-2);
   margin-top: 4px;
 }
 
@@ -688,7 +688,7 @@ body.consult-card .site-footer {
 }
 .shell .encheck b {
   display: block;
-  color: var(--ink-3);
+  color: var(--ink-2);
   font-size: 10.5px;
   letter-spacing: 0.06em;
   font-weight: 600;
