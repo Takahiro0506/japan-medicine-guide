@@ -670,14 +670,14 @@ body.consult-card .tabs {
   opacity: 0.45;
   cursor: not-allowed;
 }
-.shell .fs.split {
+.shell .fs.center {
   display: flex;
-  gap: 8px;
+  justify-content: center;
 }
-.shell .fs.split .a,
-.shell .fs.split .b {
+.shell .fs.center .b {
   width: auto;
-  flex: 1;
+  padding-left: 28px;
+  padding-right: 28px;
 }
 
 .shell .step {

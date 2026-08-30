@@ -101,7 +101,11 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
     };
   }, []);
 
-  async function requestFullScreen() {
+  // 完成カードは薬剤師に見せる画面なのでスリープを避けたい。Wake Lock は
+  // ユーザージェスチャの外で呼ぶと NotAllowedError になりうるため、
+  // 「Make the card」を押した瞬間（ジェスチャ内）で取得する
+  async function goToCard() {
+    setStep("card");
     try {
       wakeLockRef.current = await navigator.wakeLock?.request("screen");
     } catch {
@@ -287,7 +291,7 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
               </button>
             ))}
             <div className="fs">
-              <button type="button" className="a" onClick={() => setStep("card")}>
+              <button type="button" className="a" onClick={goToCard}>
                 Make the card
               </button>
             </div>
@@ -320,10 +324,7 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
               </div>
             </div>
 
-            <div className="fs split">
-              <button type="button" className="a" onClick={requestFullScreen}>
-                Full screen
-              </button>
+            <div className="fs center">
               <button type="button" className="b" onClick={startOver}>
                 Start over
               </button>
