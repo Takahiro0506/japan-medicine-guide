@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCategories, getForeignBrands, getProductsSearchIndex } from "@/lib/data";
 import { CLASS_ONE_MARK, CLASS_ONE_WARNING_EN, getOtcClassInfo } from "@/lib/otcClass";
+import { getProductFormInfo } from "@/lib/productForm";
 import { ProductTabs } from "./ProductTabs";
 
 export const dynamicParams = false;
@@ -55,6 +56,7 @@ export default async function ProductPage({
     product.ingredients.length === 1
       ? foreignBrands.find((brand) => brand.ingredient_slug === product.ingredients[0].slug)
       : undefined;
+  const formInfo = getProductFormInfo(product.form);
 
   return (
     <ProductTabs nameJa={product.name_ja}>
@@ -80,6 +82,12 @@ export default async function ProductPage({
               {product.name_ja}
             </div>
             <div className="ro2">{product.name_romaji}</div>
+            {formInfo && (
+              <div className="formrow">
+                <formInfo.Icon size={17} strokeWidth={1.5} />
+                {formInfo.label}
+              </div>
+            )}
           </div>
         </div>
         <p className="lede">{product.summary_en}</p>

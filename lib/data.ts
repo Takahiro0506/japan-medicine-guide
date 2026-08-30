@@ -8,6 +8,7 @@ export interface ProductSearchItem {
   summary_en: string;
   otc_class: OtcClass;
   category: string;
+  form: string;
   source_url: string | null;
   reviewed_at: string | null;
   ingredients: { slug: string; name_en: string }[];
@@ -31,6 +32,7 @@ export interface CategoryProductItem {
   name_ja: string;
   name_romaji: string;
   otc_class: OtcClass;
+  form: string;
   ingredientSlugs: string[];
 }
 
@@ -41,6 +43,7 @@ interface RawProductRow {
   summary_en: string;
   otc_class: OtcClass;
   category: string;
+  form: string;
   source_url: string | null;
   reviewed_at: string | null;
   product_ingredients: {
@@ -54,6 +57,7 @@ interface RawCategoryProductRow {
   name_ja: string;
   name_romaji: string;
   otc_class: OtcClass;
+  form: string;
   product_ingredients: { ingredients: { slug: string } | null }[];
 }
 
@@ -68,7 +72,7 @@ export async function getProductsSearchIndex(): Promise<ProductSearchItem[]> {
   const { data } = await supabase
     .from("products")
     .select(
-      "slug, name_ja, name_romaji, summary_en, otc_class, category, source_url, reviewed_at, product_ingredients(sort_order, ingredients(slug, name_en))"
+      "slug, name_ja, name_romaji, summary_en, otc_class, category, form, source_url, reviewed_at, product_ingredients(sort_order, ingredients(slug, name_en))"
     )
     .order("sort_order", { foreignTable: "product_ingredients", ascending: true })
     .returns<RawProductRow[]>();
@@ -80,6 +84,7 @@ export async function getProductsSearchIndex(): Promise<ProductSearchItem[]> {
     summary_en: row.summary_en,
     otc_class: row.otc_class,
     category: row.category,
+    form: row.form,
     source_url: row.source_url,
     reviewed_at: row.reviewed_at,
     ingredients: row.product_ingredients
@@ -91,7 +96,7 @@ export async function getProductsSearchIndex(): Promise<ProductSearchItem[]> {
 export async function getProductsByCategory(categorySlug: string): Promise<CategoryProductItem[]> {
   const { data } = await supabase
     .from("products")
-    .select("slug, name_ja, name_romaji, otc_class, product_ingredients(ingredients(slug))")
+    .select("slug, name_ja, name_romaji, otc_class, form, product_ingredients(ingredients(slug))")
     .eq("category", categorySlug)
     .order("sort_order", { ascending: true })
     .returns<RawCategoryProductRow[]>();
@@ -101,6 +106,7 @@ export async function getProductsByCategory(categorySlug: string): Promise<Categ
     name_ja: row.name_ja,
     name_romaji: row.name_romaji,
     otc_class: row.otc_class,
+    form: row.form,
     ingredientSlugs: row.product_ingredients
       .map((pi) => pi.ingredients?.slug)
       .filter((slug): slug is string => Boolean(slug)),

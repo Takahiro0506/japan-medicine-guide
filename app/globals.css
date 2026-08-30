@@ -514,6 +514,12 @@ body.consult-card .tabs {
   padding: 2px 7px;
   margin-top: 8px;
 }
+.shell .pcard .fm {
+  flex: 0 0 20px;
+  height: 20px;
+  color: var(--ink-2);
+  margin-top: 2px;
+}
 
 .shell .placard {
   border: 2px solid var(--ink);
@@ -551,6 +557,15 @@ body.consult-card .tabs {
   color: var(--ink-2);
   margin-top: 8px;
   letter-spacing: 0.05em;
+}
+.shell .placard .formrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--ink-2);
 }
 .shell .placard .askja {
   padding: 13px 14px;

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCategories, getForeignBrands, getProductsByCategory } from "@/lib/data";
 import { CLASS_ONE_BADGE_EN, CLASS_ONE_MARK } from "@/lib/otcClass";
+import { getProductFormInfo } from "@/lib/productForm";
 
 export const dynamicParams = false;
 
@@ -72,6 +73,7 @@ export default async function CategoryPage({
               )
             : undefined;
         const isClass1 = product.otc_class === "class1";
+        const formInfo = getProductFormInfo(product.form);
 
         return (
           <Link className="pcard" href={`/products/${product.slug}`} key={product.slug}>
@@ -87,6 +89,11 @@ export default async function CategoryPage({
                 </span>
               )}
             </div>
+            {formInfo && (
+              <div className="fm" aria-hidden="true">
+                <formInfo.Icon size={20} strokeWidth={1.5} />
+              </div>
+            )}
           </Link>
         );
       })}
