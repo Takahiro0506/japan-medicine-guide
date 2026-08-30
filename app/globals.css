@@ -693,6 +693,26 @@ body.consult-card .tabs {
   margin: 0 0 14px;
 }
 
+.shell .grp {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  color: var(--ink-2);
+  margin: 14px 2px 7px;
+}
+.shell .grp.first {
+  margin-top: 0;
+}
+
+.shell .pair {
+  display: flex;
+  gap: 6px;
+}
+.shell .pair .chip {
+  flex: 1;
+  margin-bottom: 6px;
+}
+
 .shell .chip {
   display: flex;
   align-items: center;
