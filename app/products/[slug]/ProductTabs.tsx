@@ -49,6 +49,12 @@ export function ProductTabs({
           line-height: 1.6;
           color: var(--ink);
         }
+        .staffview-note {
+          font-size: 11.5px;
+          color: var(--ink-2);
+          margin-top: 10px;
+          padding: 0 18px;
+        }
       `}</style>
 
       <div className="tabs">
@@ -86,6 +92,7 @@ export function ProductTabs({
               </p>
             </div>
           </div>
+          <p className="staffview-note">This asks a staff member where to find it.</p>
         </main>
       )}
     </>
