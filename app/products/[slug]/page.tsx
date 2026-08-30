@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCategories, getForeignBrands, getProductsSearchIndex } from "@/lib/data";
 import { CLASS_ONE_MARK, CLASS_ONE_WARNING_EN, getOtcClassInfo } from "@/lib/otcClass";
-import { TabBar } from "@/app/TabBar";
+import { ProductTabs } from "./ProductTabs";
 
 export const dynamicParams = false;
 
@@ -57,8 +57,7 @@ export default async function ProductPage({
       : undefined;
 
   return (
-    <>
-      <TabBar current="medicines" />
+    <ProductTabs nameJa={product.name_ja}>
       <main className="shell">
         <div className="bar">
           <Link
@@ -121,17 +120,6 @@ export default async function ProductPage({
           <b>Ask the pharmacist</b> if you are pregnant, taking other medicine, or under 15.
         </div>
 
-        <div className="placard">
-          <div className="band ja">店員の方へ</div>
-          <div className="askja">
-            <p lang="ja">
-              {product.name_ja} を探しています。
-              <br />
-              どこにありますか？
-            </p>
-          </div>
-        </div>
-
         {product.source_url && (
           <div className="foot">
             <a href={product.source_url} target="_blank" rel="noopener noreferrer">
@@ -149,6 +137,6 @@ export default async function ProductPage({
           </Link>
         </div>
       </main>
-    </>
+    </ProductTabs>
   );
 }
