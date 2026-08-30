@@ -460,24 +460,6 @@ body.consult-card .site-footer {
   color: var(--accent);
 }
 
-.shell .kbox {
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  white-space: nowrap;
-  border: 1.5px solid var(--ink);
-  border-radius: 2px;
-  padding: 2px 6px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-}
-.shell .kbox.k1 {
-  border-color: var(--stop);
-  color: var(--stop);
-  background: var(--stop-soft);
-}
-
 .shell .pcard {
   display: flex;
   align-items: flex-start;
@@ -535,50 +517,64 @@ body.consult-card .site-footer {
   background: var(--card);
   overflow: hidden;
 }
-.shell .placard .ph {
+.shell .placard .band {
   background: var(--ink);
   color: #fff;
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  padding: 6px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 7px 11px;
 }
-.shell .placard .pb {
+.shell .placard .band.ja {
+  background: var(--brand);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+.shell .placard .in {
   padding: 22px 14px;
   text-align: center;
 }
 .shell .placard .big {
-  font-size: 31px;
+  font-size: 34px;
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.15;
 }
 .shell .placard .ro2 {
-  font-size: 12px;
+  font-size: 12.5px;
   color: var(--ink-2);
-  margin-top: 9px;
-  letter-spacing: 0.03em;
+  margin-top: 8px;
+  letter-spacing: 0.05em;
 }
-.shell .placard .en2 {
-  font-size: 11px;
-  color: var(--ink-2);
-  margin-top: 4px;
+.shell .placard .askja {
+  padding: 13px 14px;
+}
+.shell .placard .askja p {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.7;
 }
 
-.shell .k1row {
-  display: flex;
-  align-items: flex-start;
-  gap: 9px;
+.shell .stopbar {
   background: var(--stop-soft);
-  border: 1px solid #e4c4ba;
-  border-left-width: 3px;
-  border-radius: 6px;
-  padding: 11px;
+  border: 1px solid var(--stop-line);
+  border-left: 4px solid var(--stop);
+  border-radius: 0 6px 6px 0;
+  padding: 11px 12px;
   margin-top: 12px;
 }
-.shell .k1row .d {
+.shell .stopbar .t {
   font-size: 12.5px;
+  font-weight: 600;
   color: var(--stop);
-  line-height: 1.55;
+}
+.shell .stopbar .d {
+  font-size: 12px;
+  color: var(--stop);
+  line-height: 1.6;
+  margin-top: 5px;
 }
 
 .shell .field {

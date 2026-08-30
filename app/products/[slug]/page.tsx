@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCategories, getForeignBrands, getProductsSearchIndex } from "@/lib/data";
 import { CLASS_ONE_MARK, CLASS_ONE_WARNING_EN, getOtcClassInfo } from "@/lib/otcClass";
+import { TabBar } from "@/app/TabBar";
 
 export const dynamicParams = false;
 
@@ -56,82 +57,98 @@ export default async function ProductPage({
       : undefined;
 
   return (
-    <main className="shell">
-      <div className="bar">
-        <Link
-          className="back"
-          href={`/category/${product.category}`}
-          aria-label={`Back to ${category?.name_en ?? "category"}`}
-        >
-          &lsaquo;
-        </Link>
-        <div>
-          <h2>{category?.name_en}</h2>
-          <div className="sub">back to the list</div>
-        </div>
-      </div>
-
-      <div className="placard">
-        <div className="ph">MATCH THIS ON THE SHELF</div>
-        <div className="pb">
-          <div className="big" lang="ja">
-            {product.name_ja}
-          </div>
-          <div className="ro2">{product.name_romaji}</div>
-          <div className="en2">{product.summary_en}</div>
-        </div>
-      </div>
-
-      {isClass1 && (
-        <div className="k1row">
-          <span className="kbox k1">{CLASS_ONE_MARK}</span>
-          <div className="d">
-            {CLASS_ONE_WARNING_EN}. Like <b>Pharmacist Only (S3)</b> at home. Many shops have no
-            pharmacist in the evening.
-          </div>
-        </div>
-      )}
-
-      <div className="field">
-        <div className="lb">
-          ACTIVE INGREDIENT{product.ingredients.length !== 1 ? "S" : ""}
-        </div>
-        {product.ingredients.map((ing) => (
-          <div className="vl" key={ing.slug}>
-            {ing.name_en}
-          </div>
-        ))}
-      </div>
-
-      {sameAs && (
-        <div className="samebar">
+    <>
+      <TabBar current="medicines" />
+      <main className="shell">
+        <div className="bar">
+          <Link
+            className="back"
+            href={`/category/${product.category}`}
+            aria-label={`Back to ${category?.name_en ?? "category"}`}
+          >
+            &lsaquo;
+          </Link>
           <div>
-            Same active ingredient as <b>{sameAs.name}</b>.
+            <h2>{category?.name_en}</h2>
+            <div className="sub">back to the list</div>
           </div>
-          {sameAs.caveat_en && <div className="caveat">{sameAs.caveat_en}</div>}
         </div>
-      )}
 
-      <div className="note">
-        <b>Ask the pharmacist</b> if you are pregnant, taking other medicine, or under 15.
-      </div>
-
-      {product.source_url && (
-        <div className="foot">
-          <a href={product.source_url} target="_blank" rel="noopener noreferrer">
-            View manufacturer source
-          </a>
+        <div className="placard">
+          <div className="band">MATCH THIS ON THE SHELF</div>
+          <div className="in">
+            <div className="big" lang="ja">
+              {product.name_ja}
+            </div>
+            <div className="ro2">{product.name_romaji}</div>
+          </div>
         </div>
-      )}
-      {product.reviewed_at && (
-        <div className="foot">Checked {product.reviewed_at.slice(0, 10)}.</div>
-      )}
+        <p className="lede">{product.summary_en}</p>
 
-      <div className="fs">
-        <Link className="b" href={`/category/${product.category}`}>
-          &lsaquo; Back to {category?.name_en}
-        </Link>
-      </div>
-    </main>
+        {isClass1 && (
+          <div className="stopbar">
+            <div className="t">
+              {CLASS_ONE_MARK} {CLASS_ONE_WARNING_EN}
+            </div>
+            <div className="d">
+              Like <b>Pharmacist Only (S3)</b> at home. Many shops have no pharmacist in the
+              evening.
+            </div>
+          </div>
+        )}
+
+        <div className="field">
+          <div className="lb">
+            ACTIVE INGREDIENT{product.ingredients.length !== 1 ? "S" : ""}
+          </div>
+          {product.ingredients.map((ing) => (
+            <div className="vl" key={ing.slug}>
+              {ing.name_en}
+            </div>
+          ))}
+        </div>
+
+        {sameAs && (
+          <div className="samebar">
+            <div>
+              Same active ingredient as <b>{sameAs.name}</b>.
+            </div>
+            {sameAs.caveat_en && <div className="caveat">{sameAs.caveat_en}</div>}
+          </div>
+        )}
+
+        <div className="note">
+          <b>Ask the pharmacist</b> if you are pregnant, taking other medicine, or under 15.
+        </div>
+
+        <div className="placard">
+          <div className="band ja">店員の方へ</div>
+          <div className="askja">
+            <p lang="ja">
+              {product.name_ja} を探しています。
+              <br />
+              どこにありますか？
+            </p>
+          </div>
+        </div>
+
+        {product.source_url && (
+          <div className="foot">
+            <a href={product.source_url} target="_blank" rel="noopener noreferrer">
+              View manufacturer source
+            </a>
+          </div>
+        )}
+        {product.reviewed_at && (
+          <div className="foot">Checked {product.reviewed_at.slice(0, 10)}.</div>
+        )}
+
+        <div className="fs">
+          <Link className="b" href={`/category/${product.category}`}>
+            &lsaquo; Back to {category?.name_en}
+          </Link>
+        </div>
+      </main>
+    </>
   );
 }
