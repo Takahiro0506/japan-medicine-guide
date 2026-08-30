@@ -286,30 +286,6 @@ body.consult-card .tabs {
   margin: 2px 0 20px;
 }
 
-.shell .hero {
-  text-align: center;
-  padding: 4px 0 8px;
-}
-.shell .hero .eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--ink-2);
-  margin-bottom: 10px;
-}
-.shell .hero h1 {
-  font-size: 25px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-.shell .hero p {
-  font-size: 14px;
-  color: var(--ink-2);
-  line-height: 1.55;
-  margin-top: 10px;
-}
-
 .shell .slab {
   font-size: 11px;
   font-weight: 600;
@@ -561,15 +537,6 @@ body.consult-card .tabs {
   font-size: 12px;
   color: var(--ink-2);
 }
-.shell .placard .askja {
-  padding: 13px 14px;
-}
-.shell .placard .askja p {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.7;
-}
-
 .shell .stopbar {
   background: var(--stop-soft);
   border: 1px solid var(--stop-line);
