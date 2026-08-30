@@ -56,9 +56,7 @@ export default async function HomePage() {
       </div>
       <TabBar current="medicines" />
       <main className="shell">
-        <div className="intro">
-          <h2>MATCH THE NAME ON THE BOX</h2>
-        </div>
+        <div className="slab">MATCH THE NAME ON THE BOX</div>
 
         <div className="signlist">
           {categories.map((category) => {

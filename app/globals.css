@@ -17,6 +17,7 @@
   --ink-2: #63615a;
   --stop: #b4462f;
   --stop-soft: #fbf1ee;
+  --stop-line: #e4c4ba;
   --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Yu Gothic",
     sans-serif;
 }
@@ -305,19 +306,35 @@ body.consult-card .site-footer {
   margin-top: 10px;
 }
 
-.shell .intro {
-  margin: 30px 0 12px;
-}
-.shell .intro h2 {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: -0.005em;
-}
-.shell .intro p {
-  font-size: 13px;
+.shell .slab {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
   color: var(--ink-2);
-  line-height: 1.5;
-  margin-top: 4px;
+  margin: 0 2px 9px;
+}
+
+.shell .shelfsign {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 13px 12px;
+  margin-bottom: 16px;
+}
+.shell .shelfsign .lb {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.shell .shelfsign .ja {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 5px;
+  letter-spacing: 0.02em;
 }
 
 .shell .signlist {
@@ -402,12 +419,28 @@ body.consult-card .site-footer {
   font-weight: 600;
   text-decoration: none;
 }
+.shell .cta.ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
 .shell .cta-sub {
   font-size: 12.5px;
   color: var(--ink-2);
   text-align: center;
   line-height: 1.5;
   margin-top: 10px;
+}
+
+.shell .escape {
+  border-top: 1px solid var(--border);
+  margin-top: 15px;
+  padding-top: 14px;
+}
+.shell .escape p {
+  font-size: 12.5px;
+  color: var(--ink-2);
+  margin-bottom: 9px;
 }
 
 .shell .foot {
@@ -446,52 +479,54 @@ body.consult-card .site-footer {
 }
 
 .shell .pcard {
-  display: block;
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  min-height: 44px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 9px;
-  padding: 14px;
-  margin-bottom: 8px;
+  padding: 13px 14px;
+  margin-bottom: 6px;
   text-decoration: none;
   color: inherit;
 }
-.shell .samechip {
-  display: inline-block;
-  font-family: var(--font);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  text-transform: none;
-  color: var(--accent);
-  background: var(--accent-soft);
-  border: none;
-  border-radius: 4px;
-  padding: 3px 9px;
-  margin-bottom: 9px;
+.shell .pcard .tx {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 .shell .pcard .ro {
   font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.25;
+}
+.shell .pcard .ja {
+  font-size: 18px;
   font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  color: var(--ink);
+  margin-top: 3px;
+  line-height: 1.3;
 }
-.shell .pcard .nm {
-  font-size: 12.5px;
-  color: var(--ink-2);
-  margin-top: 4px;
-  letter-spacing: 0.02em;
+.shell .pcard .same {
+  display: inline-block;
+  font-size: 11px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid #cfe0ee;
+  border-radius: 4px;
+  padding: 2px 7px;
+  margin-top: 8px;
 }
-.shell .pcard .meta {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-.shell .pcard .req {
+.shell .pcard .tag {
+  display: inline-block;
   font-size: 11px;
   color: var(--stop);
-  font-weight: 600;
+  background: var(--stop-soft);
+  border: 1px solid var(--stop-line);
+  border-radius: 4px;
+  padding: 2px 7px;
+  margin-top: 8px;
 }
 
 .shell .placard {

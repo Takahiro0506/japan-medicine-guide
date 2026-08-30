@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCategories, getForeignBrands, getProductsByCategory } from "@/lib/data";
 import { CLASS_ONE_BADGE_EN, CLASS_ONE_MARK } from "@/lib/otcClass";
+import { TabBar } from "@/app/TabBar";
 
 export const dynamicParams = false;
 
@@ -46,44 +47,66 @@ export default async function CategoryPage({
   }
 
   return (
-    <main className="shell">
-      <div className="bar">
-        <Link className="back" href="/" aria-label="Back to Home">
-          &lsaquo;
-        </Link>
-        <div>
-          <h2>{category.name_en}</h2>
-          <div className="sub">{category.name_ja}</div>
-        </div>
-      </div>
-
-      <p className="lede">
-        Choose the exact product name on the box to check its active ingredients.
-      </p>
-
-      {products.map((product) => {
-        const sameAs =
-          product.ingredientSlugs.length === 1
-            ? foreignBrands.find((brand) => brand.ingredient_slug === product.ingredientSlugs[0])
-            : undefined;
-        const isClass1 = product.otc_class === "class1";
-
-        return (
-          <Link className="pcard" href={`/products/${product.slug}`} key={product.slug}>
-            {sameAs && <div className="samechip">Same as {sameAs.name}</div>}
-            <div className="ro">{product.name_romaji}</div>
-            <div className="nm" lang="ja">
-              {product.name_ja}
-            </div>
-            {isClass1 && (
-              <div className="meta">
-                <span className="kbox k1">{CLASS_ONE_MARK}</span>
-                <span className="req">{CLASS_ONE_BADGE_EN}</span>
-              </div>
-            )}
+    <>
+      <TabBar current="medicines" />
+      <main className="shell">
+        <div className="bar">
+          <Link className="back" href="/" aria-label="Back to Home">
+            &lsaquo;
           </Link>
-        );
-      })}
-    </main>
+          <div>
+            <h2>{category.name_en}</h2>
+          </div>
+        </div>
+
+        <div className="shelfsign">
+          <div className="lb">LOOK FOR THIS SIGN</div>
+          <div className="ja" lang="ja">
+            {category.name_ja}
+          </div>
+        </div>
+        <div className="slab">MATCH THE NAME ON THE BOX</div>
+
+        {products.map((product) => {
+          const sameAs =
+            product.ingredientSlugs.length === 1
+              ? foreignBrands.find(
+                  (brand) => brand.ingredient_slug === product.ingredientSlugs[0]
+                )
+              : undefined;
+          const isClass1 = product.otc_class === "class1";
+
+          return (
+            <Link className="pcard" href={`/products/${product.slug}`} key={product.slug}>
+              <div className="tx">
+                <div className="ro">{product.name_romaji}</div>
+                <div className="ja" lang="ja">
+                  {product.name_ja}
+                </div>
+                {sameAs && <span className="same">Same as {sameAs.name}</span>}
+                {isClass1 && (
+                  <span className="tag">
+                    {CLASS_ONE_MARK} {CLASS_ONE_BADGE_EN}
+                  </span>
+                )}
+              </div>
+            </Link>
+          );
+        })}
+
+        <div className="escape">
+          <p>Can&#39;t find any of these on the shelf?</p>
+          <Link className="cta ghost" href="/consult">
+            Make a card for the pharmacist
+          </Link>
+        </div>
+
+        <div className="fs">
+          <Link className="b" href="/" aria-label="Back to Home">
+            &lsaquo; Home
+          </Link>
+        </div>
+      </main>
+    </>
   );
 }
