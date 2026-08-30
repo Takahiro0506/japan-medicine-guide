@@ -171,6 +171,64 @@ body.consult-card .site-footer {
 }
 
 /* ============================================================
+   ブランドヘッダー（トップのみ）とタブバー（/, /category, /products, /consult）
+   .shell の外に置く兄弟要素。.shell 側の 480px/16px の基準に幅を合わせる
+   ============================================================ */
+.brandhead {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px 16px 22px;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 0 0 18px 18px;
+}
+.brandhead .mark {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+.brandhead .route {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  margin-top: 4px;
+  color: #a9c6de;
+}
+.brandhead .ask {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 16px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  max-width: 448px;
+  margin: 14px auto 0;
+  padding: 4px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+.tabs a,
+.tabs span {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+.tabs .on {
+  background: var(--brand);
+  color: #fff;
+}
+
+/* ============================================================
    全画面共通のページシェル（/, /category, /products, /consult, /about）
    背景・文字色・書体は body から継承する（.page/.review-page と同じ考え方）
    ============================================================ */
