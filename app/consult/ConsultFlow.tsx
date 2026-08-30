@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { ConsultOption } from "@/lib/data";
 
@@ -18,15 +18,38 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
   const [step1, setStep1] = useState<Set<string>>(new Set());
   const [step2, setStep2] = useState<string | null>(null);
   const [step3, setStep3] = useState<Set<string>>(new Set());
+  const wakeLockRef = useRef<WakeLockSentinel | null>(null);
 
-  // 完成カード（薬剤師に見せる画面）ではAbout/Make a cardへの導線が不要なため
-  // 共通フッターを一時的に隠す。ページ離脱時は必ず戻す
+  // 完成カード（薬剤師に見せる画面）ではAbout/Make a cardへの導線・タブバーが
+  // 不要なため一時的に隠し、背景を白にする。ページ離脱時は必ず戻す
   useEffect(() => {
     document.body.classList.toggle("consult-card", step === "card");
     return () => {
       document.body.classList.remove("consult-card");
     };
   }, [step]);
+
+  // カード以外に移動したら Wake Lock は不要
+  useEffect(() => {
+    if (step !== "card") {
+      wakeLockRef.current?.release().catch(() => {});
+      wakeLockRef.current = null;
+    }
+  }, [step]);
+
+  useEffect(() => {
+    return () => {
+      wakeLockRef.current?.release().catch(() => {});
+    };
+  }, []);
+
+  async function requestFullScreen() {
+    try {
+      wakeLockRef.current = await navigator.wakeLock?.request("screen");
+    } catch {
+      // 非対応環境やユーザージェスチャ外での失敗は無視してよい
+    }
+  }
 
   const step1Items = options.filter((o) => o.step === 1);
   const step2Items = options.filter((o) => o.step === 2);
@@ -70,6 +93,9 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
     setStep2(null);
     setStep3(new Set());
     setStep(1);
+    // このページで使う sessionStorage はすべて破棄する
+    // （選択状態の保存は sessionStorage のみで行い、送信はしない方針）
+    window.sessionStorage.clear();
   }
 
   return (
@@ -173,14 +199,14 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
 
       {step === "card" && (
         <>
-          <div className="placard jacard">
-            <div className="ph">薬剤師の方へ / TO THE PHARMACIST</div>
-            <div className="pb" lang="ja">
+          <div className="placard">
+            <div className="band ja">薬剤師の方へ</div>
+            <div className="jabody" lang="ja">
               {selected.map((o) => (
                 <p key={o.slug}>{o.text_ja}</p>
               ))}
-              <p className="req">おすすめを教えていただけますか？</p>
-              <p className="cl">
+              <p className="q">おすすめを教えていただけますか？</p>
+              <p className="note">
                 日本語が分かりません。お答えを書くか、商品を見せてください。
               </p>
             </div>
@@ -189,12 +215,15 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
           <div className="encheck">
             <b>WHAT IT SAYS</b>
             {selected.map((o) => (
-              <div key={o.slug}>{o.text_en}</div>
+              <div key={o.slug}>{o.text_en_full}</div>
             ))}
             <div>I don&#39;t understand Japanese &mdash; please write your answer or show me the product.</div>
           </div>
 
-          <div className="fs">
+          <div className="fs split">
+            <button type="button" className="a" onClick={requestFullScreen}>
+              Full screen
+            </button>
             <button type="button" className="b" onClick={startOver}>
               Start over
             </button>

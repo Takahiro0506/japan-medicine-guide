@@ -167,7 +167,11 @@ button:focus-visible {
 .site-footer a:hover {
   color: var(--accent);
 }
-body.consult-card .site-footer {
+body.consult-card {
+  background: var(--card);
+}
+body.consult-card .site-footer,
+body.consult-card .tabs {
   display: none;
 }
 
@@ -666,6 +670,15 @@ body.consult-card .site-footer {
   opacity: 0.45;
   cursor: not-allowed;
 }
+.shell .fs.split {
+  display: flex;
+  gap: 8px;
+}
+.shell .fs.split .a,
+.shell .fs.split .b {
+  width: auto;
+  flex: 1;
+}
 
 .shell .step {
   font-size: 12px;
@@ -743,25 +756,32 @@ body.consult-card .site-footer {
   margin-top: 14px;
 }
 
-.shell .jacard .pb {
+.shell .placard .jabody {
   padding: 16px 14px;
   text-align: left;
 }
-.shell .jacard p {
-  font-size: 16px;
-  line-height: 1.8;
-  margin-bottom: 10px;
+.shell .placard .jabody p {
+  font-size: 17px;
+  line-height: 1.85;
+  margin-bottom: 11px;
   font-weight: 500;
 }
-.shell .jacard .req {
+.shell .placard .jabody .q {
   font-weight: 700;
 }
-.shell .jacard .cl {
-  font-size: 14px;
-  line-height: 1.7;
+.shell .placard .jabody .note {
+  /* 葉クラス名 .note は .shell .note（商品詳細の警告ボックス）と衝突するため
+     背景・枠・paddingを明示的にリセットしてから上書きする */
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  color: inherit;
   border-top: 1px solid var(--border);
-  padding-top: 11px;
-  margin-top: 12px;
+  padding-top: 12px;
+  font-size: 15px;
+  line-height: 1.75;
+  margin-top: 14px;
   margin-bottom: 0;
   font-weight: 600;
 }
@@ -778,8 +798,9 @@ body.consult-card .site-footer {
 .shell .encheck b {
   display: block;
   color: var(--ink-2);
-  font-size: 10.5px;
-  letter-spacing: 0.06em;
+  font-size: 11px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
   font-weight: 600;
   margin-bottom: 5px;
 }
