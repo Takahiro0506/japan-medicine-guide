@@ -68,7 +68,6 @@ export default async function HomePage() {
                 </div>
                 <div className="tx">
                   <div className="en">{category.name_en}</div>
-                  <div className="ja">{category.name_ja}</div>
                 </div>
                 <div className="ar" aria-hidden="true">
                   &rsaquo;

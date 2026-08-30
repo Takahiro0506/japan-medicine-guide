@@ -352,7 +352,7 @@ body.consult-card .tabs {
   align-items: center;
   gap: 11px;
   min-height: 44px;
-  padding: 13px 14px;
+  padding: 12px 14px;
   border-bottom: 1px solid var(--border);
   text-decoration: none;
   color: inherit;
@@ -378,12 +378,6 @@ body.consult-card .tabs {
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.2;
-}
-.shell .sign .ja {
-  font-size: 11.5px;
-  color: var(--ink-2);
-  margin-top: 3px;
-  letter-spacing: 0.02em;
 }
 .shell .sign .ar {
   flex: 0 0 auto;
