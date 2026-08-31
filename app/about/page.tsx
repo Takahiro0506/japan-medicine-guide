@@ -4,6 +4,8 @@ import { getAboutStats } from "@/lib/data";
 
 export const dynamic = "force-static";
 
+const KOFI_URL = "https://ko-fi.com/japanmedicineguide";
+
 export const metadata: Metadata = {
   title: "About",
   description:
@@ -70,6 +72,21 @@ export default async function AboutPage() {
         </ul>
         <p>Ask the pharmacist if you are pregnant, taking other medicine, or under 15.</p>
         <p>This site is not affiliated with any manufacturer or pharmacy.</p>
+      </div>
+
+      <div className="support-section">
+        <h3>Support this free guide</h3>
+        <p>
+          If this helped you at a chemist in Japan, you can support its ongoing review and
+          maintenance.
+        </p>
+        <p className="support-note">
+          One-off only. The guide stays free and identical either way.
+        </p>
+        <a className="support-link" href={KOFI_URL} target="_blank" rel="noopener noreferrer">
+          Support on Ko-fi <span aria-hidden="true">↗</span>
+          <span className="sr-only"> (opens in new tab)</span>
+        </a>
       </div>
     </main>
   );

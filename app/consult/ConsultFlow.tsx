@@ -78,7 +78,7 @@ export function ConsultFlow({ options }: { options: ConsultOption[] }) {
     }
   }, [hydrated, step1, step2, step3, step]);
 
-  // 完成カード（薬剤師に見せる画面）ではAbout/Make a cardへの導線・タブバーが
+  // 完成カード（薬剤師に見せる画面）ではAbout/Supportへの導線・タブバーが
   // 不要なため一時的に隠し、背景を白にする。ページ離脱時は必ず戻す
   useEffect(() => {
     document.body.classList.toggle("consult-card", step === "card");

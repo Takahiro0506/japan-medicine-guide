@@ -86,11 +86,6 @@ export default async function HomePage() {
         <p className="cta-sub">
           Make a Japanese card describing your symptoms to show at the counter.
         </p>
-
-        <div className="foot">
-          Information only &mdash; not medical advice. Facts come from manufacturers&#39; package
-          inserts and are checked by a registered pharmacist in Japan.
-        </div>
       </main>
     </>
   );
