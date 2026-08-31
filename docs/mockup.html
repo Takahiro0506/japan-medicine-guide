@@ -3,233 +3,321 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Japan Medicine Guide — デザイン方向性の提案</title>
+<title>Japan Medicine Guide v5 — 画面モックアップ</title>
 <style>
-/* ============================================================
-   下敷きにしたもの
-   1. 日本の案内標識（駅・道路）— 外国人が日本で最も見る二言語表示
-   2. 医薬品パッケージの区分表示 — 箱に実際に印刷されている枠
-   3. 「誰が読む文字か」で組み方を変える
-   配色は豪州版を継承。構造と組版だけを日本仕様にする。
-   ============================================================ */
 :root{
-  --bg:#F1EFE8; --card:#FFFFFF; --border:#D3D1C7;
-  --accent:#185FA5; --accent-soft:#E9F0F7;
-  --ink:#2B2A26; --ink-2:#6E6C64; --ink-3:#9A978D;
-  --stop:#B4462F; --stop-soft:#FBF1EE;
+  --bg:#F1EFE8; --card:#FFFFFF; --border:#C7C4B8;
+  --brand:#123F66; --accent:#185FA5; --accent-soft:#E9F0F7;
+  --ink:#2B2A26; --ink-2:#63615A;
+  --stop:#B4462F; --stop-soft:#FBF1EE; --stop-line:#E4C4BA;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);
+body{
+  background:var(--bg);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
-  padding:40px 24px 64px;-webkit-font-smoothing:antialiased}
-.head{max-width:1300px;margin:0 auto 32px}
-.head h1{font-size:20px;font-weight:600}
-.head p{font-size:13px;color:var(--ink-2);margin-top:8px;line-height:1.7;max-width:76ch}
-.head b{color:var(--ink);font-weight:600}
-.rail{display:flex;gap:28px;align-items:flex-start;max-width:1300px;margin:0 auto;overflow-x:auto;padding-bottom:16px}
-.col{flex:0 0 268px}
-.cap{margin-top:12px}
-.cap .n{display:inline-block;font-size:11px;font-weight:600;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:1px 6px;margin-bottom:6px}
-.cap .t{font-size:13px;font-weight:600}
-.cap .d{font-size:12px;color:var(--ink-2);line-height:1.6;margin-top:3px}
-.cap .d b{color:var(--ink);font-weight:600}
+  padding:36px 24px 56px;-webkit-font-smoothing:antialiased;
+}
+h1{font-size:17px;font-weight:600;max-width:1700px;margin:0 auto 24px}
 
-.phone{width:268px;background:var(--bg);border:1px solid var(--border);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;height:540px}
-.bar{background:var(--card);border-bottom:1px solid var(--border);padding:13px 15px;flex:0 0 auto;display:flex;align-items:center;gap:9px}
-.bar .back{color:var(--ink-3);font-size:15px}
-.bar h2{font-size:14px;font-weight:600}
-.bar .sub{font-size:11px;color:var(--ink-2);margin-top:2px}
-.body{padding:13px;overflow:hidden;flex:1 1 auto}
+.rail{display:flex;gap:26px;align-items:flex-start;max-width:1700px;margin:0 auto;overflow-x:auto;padding-bottom:12px}
+.col{flex:0 0 272px}
+.cap{margin-top:11px;font-size:12.5px;font-weight:600}
+.cap i{display:inline-block;font-style:normal;font-size:11px;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:0 5px;margin-right:6px}
 
-/* ---- 1. 案内標識ふうのカテゴリ行 ---- */
-.sign{background:var(--card);border:1px solid var(--border);border-radius:9px;
-  padding:11px 12px;margin-bottom:7px;display:flex;align-items:center;gap:11px}
-.code{flex:0 0 auto;width:30px;height:30px;border-radius:4px;background:var(--accent);
-  color:#fff;font-size:11px;font-weight:700;letter-spacing:.04em;
-  display:flex;align-items:center;justify-content:center}
-.sign .tx{flex:1 1 auto;min-width:0}
-.sign .en{font-size:14px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
-.sign .ja{font-size:10.5px;color:var(--ink-3);margin-top:3px;letter-spacing:.02em}
-.sign .ar{flex:0 0 auto;color:var(--accent);font-size:14px}
+.phone{width:272px;background:var(--bg);border:1px solid var(--border);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;height:648px;position:relative}
 
-.divider{display:flex;align-items:center;gap:9px;margin:15px 2px 10px}
-.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border)}
-.divider span{font-size:11px;color:var(--ink-2)}
-.cta{background:var(--accent);color:#fff;border-radius:9px;padding:13px;text-align:center;font-size:13px;font-weight:600}
-.foot{flex:0 0 auto;border-top:1px solid var(--border);background:var(--card);padding:9px 13px;font-size:9.5px;color:var(--ink-3);line-height:1.5}
+.brandhead{background:var(--brand);color:#fff;padding:15px 16px 18px;border-radius:0 0 18px 18px;flex:0 0 auto}
+.brandhead .mark{font-size:12px;font-weight:700;letter-spacing:.13em}
+.brandhead .route{font-size:10px;letter-spacing:.16em;margin-top:4px;color:#A9C6DE}
+.brandhead .ask{font-size:20px;font-weight:600;letter-spacing:-.01em;margin-top:16px}
 
-/* ---- 2. 区分マーク（箱に印刷されている枠を再現）---- */
-.kbox{display:inline-flex;align-items:center;border:1.5px solid var(--ink);
-  border-radius:2px;padding:2px 6px;font-size:10px;font-weight:700;letter-spacing:.06em}
-.kbox.k1{border-color:var(--stop);color:var(--stop);background:var(--stop-soft)}
+.bar{background:var(--card);border-bottom:1px solid var(--border);padding:12px 15px;flex:0 0 auto}
+.bar .row2{display:flex;align-items:center;gap:10px}
+.bar .back{color:var(--ink-2);font-size:17px;line-height:1}
+.navtitle{font-size:15px;font-weight:600}
+.navsub{font-size:12px;color:var(--ink-2);margin-top:2px}
 
-/* ---- 一覧カード（改） ---- */
-.pcard{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:12px 13px;margin-bottom:8px}
-.samechip{display:inline-block;background:var(--accent);color:#fff;font-size:11px;font-weight:700;
-  letter-spacing:.01em;border-radius:4px;padding:3px 9px;margin-bottom:9px}
-.pcard .ro{font-size:16px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
-.pcard .nm{font-size:12.5px;color:var(--ink-2);margin-top:4px;letter-spacing:.02em}
-.pcard .meta{display:flex;align-items:center;gap:7px;margin-top:10px;flex-wrap:wrap}
-.pcard .req{font-size:11px;color:var(--stop);font-weight:600}
+.tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:4px;margin:13px 14px 0;flex:0 0 auto}
+.tabs div{flex:1;text-align:center;font-size:13px;font-weight:600;border-radius:999px;padding:10px 0;color:var(--ink-2)}
+.tabs div.on{background:var(--brand);color:#fff}
 
-/* ---- 3. 「見せる」ための札 ---- */
-.placard{border:2px solid var(--ink);border-radius:4px;background:var(--card);overflow:hidden}
-.placard .ph{background:var(--ink);color:#fff;font-size:9px;letter-spacing:.12em;padding:5px 10px}
-.placard .pb{padding:20px 14px;text-align:center}
-.placard .big{font-size:31px;font-weight:700;letter-spacing:.02em;line-height:1.15}
-.placard .ro2{font-size:12px;color:var(--ink-2);margin-top:9px;letter-spacing:.03em}
-.placard .en2{font-size:10.5px;color:var(--ink-3);margin-top:4px}
+.body{padding:14px;overflow:hidden;flex:1 1 auto}
+.slab{font-size:11px;color:var(--ink-2);letter-spacing:.11em;font-weight:600;margin:0 2px 9px}
 
-.k1row{display:flex;align-items:flex-start;gap:9px;background:var(--stop-soft);
-  border:1px solid #E4C4BA;border-left-width:3px;border-radius:6px;padding:10px 11px;margin-top:11px}
-.k1row .d{font-size:10.5px;color:var(--stop);line-height:1.6}
-.field{margin-top:14px}
-.field .lb{font-size:9.5px;color:var(--ink-3);letter-spacing:.08em}
-.field .vl{font-size:15px;font-weight:600;margin-top:5px}
-.samebar{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:12px;font-size:11.5px;line-height:1.6;color:var(--ink-2)}
-.samebar b{color:var(--ink);font-weight:600}
+.row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px 13px;margin-bottom:6px;display:flex;align-items:center;gap:12px;min-height:52px}
+.row .ic{flex:0 0 24px;height:24px;color:var(--accent)}
+.row .tx{flex:1 1 auto}
+.row .en{font-size:15px;font-weight:500}
+.row .ja{font-size:12px;color:var(--ink-2);margin-top:1px}
+.row .chev{color:var(--ink-2);font-size:14px}
 
-/* 完成カード = 同じ札 */
-.jacard .pb{padding:15px 14px;text-align:left}
-.jacard p{font-size:15px;line-height:1.85;margin-bottom:9px;font-weight:500}
-.jacard .req{font-weight:700}
-.jacard .cl{font-size:13.5px;line-height:1.75;border-top:1px solid var(--border);padding-top:10px;margin-top:11px;margin-bottom:0;font-weight:600}
-.encheck{font-size:10px;color:var(--ink-2);line-height:1.6;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:9px 11px;margin-top:9px}
-.encheck b{display:block;color:var(--ink-3);font-size:9.5px;font-weight:600;margin-bottom:4px;letter-spacing:.06em}
+.fold{position:absolute;left:0;right:0;top:560px;border-top:1px dashed var(--stop);z-index:5}
+.fold span{position:absolute;right:8px;top:-8px;background:var(--stop);color:#fff;font-size:9px;font-weight:600;letter-spacing:.08em;border-radius:3px;padding:1px 5px}
+
+.sign{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 13px 12px;margin-bottom:16px}
+.sign .lb{font-size:10.5px;color:var(--ink-2);letter-spacing:.11em;font-weight:600}
+.sign .ja{font-size:22px;font-weight:700;margin-top:5px;letter-spacing:.02em}
+
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 13px;margin-bottom:6px;display:flex;align-items:flex-start;gap:11px}
+.pcard .tx{flex:1 1 auto;min-width:0}
+.pcard .ro{font-size:16px;font-weight:600;line-height:1.25}
+.pcard .ja{font-size:18px;font-weight:700;margin-top:3px;line-height:1.3}
+.pcard .fm{flex:0 0 20px;height:20px;color:var(--ink-2);margin-top:2px}
+.pcard .same{display:inline-block;font-size:11px;color:var(--accent);background:var(--accent-soft);border:1px solid #CFE0EE;border-radius:4px;padding:2px 7px;margin-top:8px}
+.pcard .tag{display:inline-block;font-size:11px;color:var(--stop);border:1px solid var(--stop-line);background:var(--stop-soft);border-radius:4px;padding:2px 7px;margin-top:8px}
+
+.escape{border-top:1px solid var(--border);margin-top:15px;padding-top:14px}
+.escape p{font-size:12.5px;color:var(--ink-2);margin-bottom:9px}
+.cta{background:var(--accent);color:#fff;border-radius:10px;padding:14px;text-align:center;font-size:14px;font-weight:600}
+.cta.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+
+.placard{border:2px solid var(--ink);border-radius:4px;overflow:hidden;background:var(--card)}
+.placard .band{background:var(--ink);color:#fff;font-size:10px;letter-spacing:.14em;font-weight:600;padding:7px 11px}
+.placard .band.ja{letter-spacing:.06em;font-size:12px;background:var(--brand)}
+.placard .in{padding:18px 14px;text-align:center}
+.placard .big{font-size:34px;font-weight:700;letter-spacing:.02em;line-height:1.15}
+.placard .ro2{font-size:12.5px;color:var(--ink-2);letter-spacing:.05em;margin-top:8px}
+.placard .formrow{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:12px;font-size:12px;color:var(--ink-2)}
+.placard .askja{padding:13px 14px}
+.placard .askja p{font-size:16px;font-weight:600;line-height:1.7}
+
+.stopbar{background:var(--stop-soft);border:1px solid var(--stop-line);border-left:4px solid var(--stop);border-radius:0 6px 6px 0;padding:11px 12px;margin-top:12px}
+.stopbar .t{font-size:12.5px;font-weight:600;color:var(--stop)}
+.stopbar .d{font-size:12px;color:var(--stop);line-height:1.6;margin-top:5px}
+
+.field{margin-top:15px}
+.field .lb{font-size:11px;color:var(--ink-2);letter-spacing:.11em;font-weight:600}
+.field .vl{font-size:17px;font-weight:600;margin-top:5px}
+.srclink{font-size:12.5px;color:var(--accent);margin-top:15px;padding-top:12px;border-top:1px solid var(--border)}
+.srclink .dt{font-size:11.5px;color:var(--ink-2);margin-top:5px}
+.gap{height:22px}
+
+.prog{display:flex;gap:5px;margin:2px 0 8px}
+.prog i{flex:1;height:4px;border-radius:2px;background:var(--border)}
+.prog i.on{background:var(--accent)}
+.pnum{font-size:11.5px;color:var(--ink-2);letter-spacing:.04em;margin-bottom:14px;font-weight:600}
+.grp{font-size:11px;color:var(--ink-2);letter-spacing:.11em;font-weight:600;margin:14px 2px 7px}
+.grp.first{margin-top:0}
+.chip{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:11px 13px;font-size:14px;margin-bottom:6px;display:flex;align-items:center;gap:10px;min-height:44px}
+.chip .box{width:16px;height:16px;border:1.5px solid var(--ink-2);border-radius:3px;flex:0 0 auto}
+.chip.on{border-color:var(--accent);background:var(--accent-soft)}
+.chip.on .box{background:var(--accent);border-color:var(--accent);display:flex;align-items:center;justify-content:center}
+.chip.on .box::after{content:"";width:7px;height:4px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg);margin-top:-2px}
+.pair{display:flex;gap:6px}
+.pair .chip{flex:1;margin-bottom:6px}
+.pair .chip .box{border-radius:50%}
+.alert{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--stop);border-radius:0 6px 6px 0;padding:10px 11px;font-size:12px;color:var(--ink-2);line-height:1.6;margin-top:14px}
+
+.jabody{padding:16px 14px}
+.jabody p{font-size:17px;line-height:1.85;margin-bottom:11px;font-weight:500}
+.jabody .q{font-weight:700}
+.jabody .note{font-size:15px;line-height:1.75;border-top:1px solid var(--border);padding-top:12px;margin-top:14px;margin-bottom:0;font-weight:600}
+.encheck{font-size:11.5px;color:var(--ink-2);line-height:1.65;margin-top:12px;padding:0 2px}
+.encheck b{display:block;font-size:11px;letter-spacing:.11em;font-weight:600;margin-bottom:5px}
 
 .fs{background:var(--card);border-top:1px solid var(--border);padding:11px 13px;display:flex;gap:8px;flex:0 0 auto}
-.fs div{flex:1;text-align:center;font-size:11.5px;font-weight:600;border-radius:7px;padding:10px 0}
+.fs div{flex:1;text-align:center;font-size:13px;font-weight:600;border-radius:10px;padding:12px 0}
 .fs .a{background:var(--accent);color:#fff}
-.fs .b{border:1px solid var(--border);color:var(--ink-2)}
+.fs .b{border:1px solid var(--border);color:var(--ink-2);font-weight:500}
+.foot{flex:0 0 auto;border-top:1px solid var(--border);background:var(--card);padding:10px 14px;font-size:11.5px;color:var(--ink-2);line-height:1.55}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 
-<div class="head">
-  <h1>デザイン方向性の提案（改） — 選ぶ画面と照合する画面で主従を逆転させる</h1>
-  <p>配色は豪州版のまま変えていません。変えたのは<b>組み方</b>だけです。下敷きにしたのは、旅行者が日本で最も多く目にする二言語表示——<b>駅と道路の案内標識</b>。そして<b>薬の箱に実際に印刷されている区分の枠</b>です。装飾ではなく、棚の実物と照合するための機能として効きます。<br><b>一覧では英語を上に、商品詳細では日本語を最大に</b>——読む人が「選んでいる」のか「照合している」のかで組み方を変えました。</p>
-</div>
+<h1>Japan Medicine Guide v5 — 画面モックアップ</h1>
 
 <div class="rail">
 
-  <!-- 1 -->
+  <!-- 1 HOME -->
   <div class="col">
     <div class="phone">
-      <div class="bar"><div><h2>Japan Medicine Guide</h2><div class="sub">What are you looking for?</div></div></div>
+      <div class="fold"><span>FOLD · iPhone SE</span></div>
+      <div class="brandhead">
+        <div class="mark">JAPAN MEDICINE GUIDE</div>
+        <div class="route">AUSTRALIA → JAPAN</div>
+        <div class="ask">At a chemist in Japan?</div>
+      </div>
+      <div class="tabs"><div class="on">Medicines</div><div>Ask pharmacist</div></div>
       <div class="body">
-        <div class="sign"><div class="code">PF</div><div class="tx"><div class="en">Pain &amp; Fever</div><div class="ja">痛み・熱</div></div><div class="ar">→</div></div>
-        <div class="sign"><div class="code">CF</div><div class="tx"><div class="en">Cold &amp; Flu</div><div class="ja">かぜ</div></div><div class="ar">→</div></div>
-        <div class="sign"><div class="code">ST</div><div class="tx"><div class="en">Stomach</div><div class="ja">胃腸</div></div><div class="ar">→</div></div>
-        <div class="sign"><div class="code">AL</div><div class="tx"><div class="en">Allergy</div><div class="ja">アレルギー</div></div><div class="ar">→</div></div>
-        <div class="sign"><div class="code">SK</div><div class="tx"><div class="en">Skin</div><div class="ja">皮膚</div></div><div class="ar">→</div></div>
-        <div class="sign"><div class="code">EY</div><div class="tx"><div class="en">Eye drops</div><div class="ja">目薬</div></div><div class="ar">→</div></div>
-        <div class="divider"><span>Can't explain it in Japanese?</span></div>
-        <div class="cta">Make a card in Japanese</div>
+        <div class="slab">MATCH THE NAME ON THE BOX</div>
+
+        <div class="row">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="9.5" y="2" width="5" height="13" rx="2.5"/><path d="M12 5v8"/><circle cx="12" cy="18" r="3.4"/></svg>
+          <div class="tx"><div class="en">Pain &amp; Fever</div><div class="ja">痛み・熱</div></div><span class="chev">›</span>
+        </div>
+        <div class="row">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 3c3 4 5 6.4 5 9a5 5 0 0 1-10 0c0-2.6 2-5 5-9z"/><path d="M9.6 13.6a2.6 2.6 0 0 0 2.6 2.6"/></svg>
+          <div class="tx"><div class="en">Cold &amp; Flu</div><div class="ja">かぜ</div></div><span class="chev">›</span>
+        </div>
+        <div class="row">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M6.6 10.4c1.6 0 1.6 1.8 3.2 1.8s1.6-1.8 3.2-1.8 1.6 1.8 3.2 1.8"/></svg>
+          <div class="tx"><div class="en">Stomach</div><div class="ja">胃腸</div></div><span class="chev">›</span>
+        </div>
+        <div class="row">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.2v2.6M12 18.2v2.6M3.2 12h2.6M18.2 12h2.6M5.9 5.9l1.9 1.9M16.2 16.2l1.9 1.9M18.1 5.9l-1.9 1.9M7.8 16.2l-1.9 1.9"/></svg>
+          <div class="tx"><div class="en">Allergy</div><div class="ja">アレルギー</div></div><span class="chev">›</span>
+        </div>
+        <div class="row">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="10" cy="10" r="1"/><circle cx="14.5" cy="13" r="1"/><circle cx="10" cy="15" r="1"/></svg>
+          <div class="tx"><div class="en">Skin</div><div class="ja">皮膚</div></div><span class="chev">›</span>
+        </div>
+        <div class="row">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 12s3.6-5.5 9.5-5.5S21.5 12 21.5 12 17.9 17.5 12 17.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/></svg>
+          <div class="tx"><div class="en">Eye drops</div><div class="ja">目薬</div></div><span class="chev">›</span>
+        </div>
+        <div class="row">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 14.5l1.6-5.2A2 2 0 0 1 8 7.8h8a2 2 0 0 1 1.9 1.5l1.6 5.2"/><rect x="3" y="14.5" width="18" height="4.5" rx="1.5"/><circle cx="7.5" cy="19" r="1.4"/><circle cx="16.5" cy="19" r="1.4"/></svg>
+          <div class="tx"><div class="en">Motion sickness</div><div class="ja">乗り物酔い</div></div><span class="chev">›</span>
+        </div>
+        <div class="row">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-20 12 12)"/><path d="M8.6 6.6l6.8 10.8"/></svg>
+          <div class="tx"><div class="en">Muscle &amp; joint</div><div class="ja">筋肉痛・関節痛</div></div><span class="chev">›</span>
+        </div>
       </div>
       <div class="foot">Information only — not medical advice. Checked by a registered pharmacist in Japan.</div>
     </div>
-    <div class="cap">
-      <span class="n">1</span>
-      <div class="t">ホーム — 絵ではなく符号を置く</div>
-      <div class="d">医療のピクトグラムは<b>症状を限定して見せてしまう</b>（体温計＝熱だけ？）。駅ナンバリングと同じ<b>2文字の符号</b>にすれば誤解が生まれず、視覚の錨にはなる。行の高さも詰めて密度を上げた。</div>
-    </div>
+    <div class="cap"><i>1</i>ホーム</div>
   </div>
 
-  <!-- 2 -->
+  <!-- 2 CATEGORY -->
   <div class="col">
     <div class="phone">
-      <div class="bar"><span class="back">‹</span><div><h2>Pain &amp; Fever</h2><div class="sub">痛み・熱</div></div></div>
+      <div class="bar"><div class="row2"><span class="back">‹</span><div class="navtitle">Pain &amp; Fever</div></div></div>
+      <div class="tabs"><div class="on">Medicines</div><div>Ask pharmacist</div></div>
       <div class="body">
+        <div class="sign">
+          <div class="lb">LOOK FOR THIS SIGN</div>
+          <div class="ja">痛み・熱</div>
+        </div>
+        <div class="slab">MATCH THE NAME ON THE BOX</div>
+
         <div class="pcard">
-          <div><span class="samechip">Same as Panadol</span></div>
-          <div class="ro">Tylenol A</div>
-          <div class="nm">タイレノールA</div>
+          <div class="tx">
+            <div class="ro">Tylenol A</div><div class="ja">タイレノールA</div>
+            <div><span class="same">Same as Panadol</span></div>
+          </div>
+          <svg class="fm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M6.5 12h11"/></svg>
         </div>
         <div class="pcard">
-          <div class="ro">EVE A</div>
-          <div class="nm">イブA錠</div>
+          <div class="tx"><div class="ro">EVE A</div><div class="ja">イブA錠</div></div>
+          <svg class="fm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M6.5 12h11"/></svg>
         </div>
         <div class="pcard">
-          <div class="ro">Bufferin A</div>
-          <div class="nm">バファリンA</div>
+          <div class="tx"><div class="ro">Bufferin A</div><div class="ja">バファリンA</div></div>
+          <svg class="fm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M6.5 12h11"/></svg>
         </div>
         <div class="pcard">
-          <div class="ro">Loxonin S</div>
-          <div class="nm">ロキソニンS</div>
-          <div class="meta"><span class="kbox k1">第1類</span><span class="req">Pharmacist required</span></div>
+          <div class="tx">
+            <div class="ro">Loxonin S</div><div class="ja">ロキソニンS</div>
+            <div><span class="tag">▲ Pharmacist required</span></div>
+          </div>
+          <svg class="fm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M6.5 12h11"/></svg>
+        </div>
+
+        <div class="escape">
+          <p>Can't find any of these on the shelf?</p>
+          <div class="cta ghost">Make a card for the pharmacist</div>
         </div>
       </div>
+      <div class="fs"><div class="b">‹ Home</div></div>
     </div>
-    <div class="cap">
-      <span class="n">2</span>
-      <div class="t">一覧 — 選ぶ画面なので英語を上に</div>
-      <div class="d">第2類・第3類の枠は<b>全削除</b>。全部同じで情報量がゼロなのに漢字だけ増えていた。<b>区分を出すのは行動が変わる第1類だけ。</b>結果、赤枠が本当に目立つようになった。</div>
-    </div>
+    <div class="cap"><i>2</i>カテゴリ一覧</div>
   </div>
 
-  <!-- 3 -->
+  <!-- 3 PRODUCT -->
   <div class="col">
     <div class="phone">
-      <div class="bar"><span class="back">‹</span><div><h2>Pain &amp; Fever</h2><div class="sub">back to the list</div></div></div>
+      <div class="bar"><div class="row2"><span class="back">‹</span><div><div class="navtitle">Pain &amp; Fever</div><div class="navsub">back to the list</div></div></div></div>
+      <div class="tabs"><div class="on">Medicines</div><div>Ask pharmacist</div></div>
       <div class="body">
         <div class="placard">
-          <div class="ph">MATCH THIS ON THE SHELF</div>
-          <div class="pb">
+          <div class="band">MATCH THIS ON THE SHELF</div>
+          <div class="in">
             <div class="big">ロキソニンS</div>
             <div class="ro2">Loxonin S</div>
-            <div class="en2">Pain &amp; fever relief</div>
+            <div class="formrow">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M6.5 12h11"/></svg>
+              Tablets
+            </div>
           </div>
         </div>
-        <div class="k1row">
-          <span class="kbox k1">第1類</span>
-          <div class="d">Pharmacist required. Like <b>Pharmacist Only (S3)</b> at home. Many shops have no pharmacist in the evening.</div>
+        <div class="stopbar">
+          <div class="t">▲ Class 1 · pharmacist required</div>
+          <div class="d">Like Pharmacist Only (S3) at home. Many shops have no pharmacist on duty in the evening.</div>
         </div>
         <div class="field">
           <div class="lb">ACTIVE INGREDIENT</div>
           <div class="vl">Loxoprofen</div>
         </div>
-        <div class="samebar">Not sold in Australia.</div>
+        <div class="gap"></div>
+        <div class="placard">
+          <div class="band ja">店員の方へ</div>
+          <div class="askja"><p>ロキソニンS を探しています。<br>どこにありますか？</p></div>
+        </div>
+        <div class="srclink">View manufacturer source ↗<div class="dt">Checked 2026-08-29</div></div>
       </div>
       <div class="fs"><div class="b">‹ Back to Pain &amp; Fever</div></div>
     </div>
-    <div class="cap">
-      <span class="n">3</span>
-      <div class="t">商品詳細 — ここで日本語が主役に変わる</div>
-      <div class="d">照合する画面なので日本語を最大に。<b>一覧とは主従が逆転する。</b>区分の枠もここでだけ出す。「選ぶ画面は英語、照合する画面は日本語」という規則。</div>
-    </div>
+    <div class="cap"><i>3</i>商品詳細</div>
   </div>
 
-  <!-- 4 -->
+  <!-- 4 CONSULT -->
   <div class="col">
     <div class="phone">
-      <div class="bar"><span class="back">‹</span><h2>Show this to the pharmacist</h2></div>
+      <div class="bar"><div class="row2"><span class="back">‹</span><div class="navtitle">Make a card</div></div></div>
+      <div class="tabs"><div>Medicines</div><div class="on">Ask pharmacist</div></div>
       <div class="body">
-        <div class="placard jacard">
-          <div class="ph">薬剤師の方へ / TO THE PHARMACIST</div>
-          <div class="pb">
-            <p>のどが痛く、乾いた咳が出ます。</p>
-            <p>熱はありません。</p>
+        <div class="prog"><i class="on"></i><i></i><i></i></div>
+        <div class="pnum">STEP 1 OF 3 &nbsp;·&nbsp; What's wrong?</div>
+
+        <div class="grp first">NOSE &amp; THROAT</div>
+        <div class="chip on"><span class="box"></span>Sore throat</div>
+        <div class="chip on"><span class="box"></span>Dry cough</div>
+        <div class="chip"><span class="box"></span>Runny or blocked nose</div>
+
+        <div class="grp">TEMPERATURE</div>
+        <div class="pair">
+          <div class="chip"><span class="box"></span>Fever</div>
+          <div class="chip on"><span class="box"></span>No fever</div>
+        </div>
+
+        <div class="grp">HEAD &amp; BODY</div>
+        <div class="chip"><span class="box"></span>Headache</div>
+
+        <div class="alert">If you have trouble breathing, severe chest pain, or feel confused, go to a hospital rather than a chemist.</div>
+      </div>
+      <div class="fs"><div class="b">‹ Home</div><div class="a">Next</div></div>
+    </div>
+    <div class="cap"><i>4</i>Ask pharmacist · Step 1</div>
+  </div>
+
+  <!-- 5 CARD -->
+  <div class="col">
+    <div class="phone" style="background:#FFFFFF">
+      <div class="bar"><div class="row2"><span class="back">‹</span><div class="navtitle">Show this to the pharmacist</div></div></div>
+      <div class="body" style="background:#FFFFFF">
+        <div class="placard">
+          <div class="band ja">薬剤師の方へ</div>
+          <div class="jabody">
+            <p>のどが痛く、乾いた咳が出ます。熱はありません。</p>
             <p>2〜3日前からです。</p>
-            <p>ほかに薬を飲んでいます。</p>
-            <p class="req">おすすめを教えていただけますか？</p>
-            <p class="cl">日本語が分かりません。お答えを書くか、商品を見せてください。</p>
+            <p>眠くならないものを希望します。</p>
+            <p class="q">おすすめを教えていただけますか？</p>
+            <p class="note">日本語が分かりません。お答えを書くか、商品を見せてください。</p>
           </div>
         </div>
         <div class="encheck">
           <b>WHAT IT SAYS</b>
-          I have a sore throat and a dry cough / No fever / It started 2–3 days ago / I'm taking other medicine
+          Sore throat and dry cough, no fever. Started 2–3 days ago. Prefer something non-drowsy. / I don't understand Japanese — please write your answer or show me the product.
         </div>
       </div>
-      <div class="fs"><div class="b">Start over</div></div>
+      <div class="fs"><div class="a">Full screen</div><div class="b">Start over</div></div>
     </div>
-    <div class="cap">
-      <span class="n">4</span>
-      <div class="t">完成カード — 同じ「札」が返ってくる</div>
-      <div class="d">商品詳細と<b>同じ枠・同じ黒帯</b>。「この形が出たら人に見せるもの」と体で覚える。黒帯を日本語にしたのは、<b>受け取る側が最初に読む1行</b>だから。</div>
-    </div>
+    <div class="cap"><i>5</i>完成カード（タブ非表示）</div>
   </div>
 
 </div>
+
 </body>
 </html>
