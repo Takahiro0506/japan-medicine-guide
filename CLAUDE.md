@@ -437,7 +437,7 @@ Excel の監修シートで実施し、`/review` で `updated_at > reviewed_at` 
 
 ### 実装
 
-支援先: `https://ko-fi.com/japanmedicineguide`
+支援先: `https://ko-fi.com/takahiroapps`
 
 - **Ko-fi の埋め込みウィジェット（iframe / script）を使わない。**
   新しい依存を増やさないため、全ページ静的生成にサードパーティ JS を

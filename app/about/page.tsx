@@ -1,10 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getAboutStats } from "@/lib/data";
+import { KOFI_URL } from "@/lib/kofi";
 
 export const dynamic = "force-static";
-
-const KOFI_URL = "https://ko-fi.com/japanmedicineguide";
 
 export const metadata: Metadata = {
   title: "About",

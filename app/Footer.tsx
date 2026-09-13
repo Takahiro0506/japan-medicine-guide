@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const KOFI_URL = "https://ko-fi.com/japanmedicineguide";
+import { KOFI_URL } from "@/lib/kofi";
 
 export function Footer() {
   const pathname = usePathname();
