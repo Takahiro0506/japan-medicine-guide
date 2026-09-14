@@ -1,0 +1,9 @@
+name,ingredient_slug,caveat_en,source_url,verified
+Aspro,aspirin,null,null,false
+Claratyne,loratadine,null,null,false
+Nurofen,ibuprofen,null,null,false
+Panadol,paracetamol,null,null,false
+Pepcid,famotidine,null,null,false
+Telfast,fexofenadine,Sold in Japan under the name Allegra,null,false
+Voltaren,diclofenac,null,null,false
+Zyrtec,cetirizine,null,null,false

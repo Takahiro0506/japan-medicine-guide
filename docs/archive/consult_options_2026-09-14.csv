@@ -1,0 +1,27 @@
+slug,step,text_en,text_ja,sort_order,text_en_full
+sore-throat,1,Sore throat,のどが痛いです,1,I have a sore throat.
+dry-cough,1,Dry cough,乾いた咳が出ます,2,I have a dry cough.
+wet-cough,1,Cough with phlegm,痰のからむ咳が出ます,3,I have a cough with phlegm.
+runny-nose,1,Runny or blocked nose,鼻水や鼻づまりがあります,4,I have a runny or blocked nose.
+fever,1,Fever,熱があります,5,I have a fever.
+no-fever,1,No fever,熱はありません,6,I don't have a fever.
+headache,1,Headache,頭痛がします,7,I have a headache.
+stomach-ache,1,Stomach ache,胃が痛いです,8,I have a stomach ache.
+diarrhoea,1,Diarrhoea,下痢をしています,9,I have diarrhoea.
+heartburn,1,Heartburn,胸やけがします,10,I have heartburn.
+nausea,1,Nausea,吐き気がします,11,I feel nauseous.
+itchy-eyes,1,Itchy eyes,目がかゆいです,12,My eyes are itchy.
+itchy-skin,1,Itchy skin,皮膚がかゆいです,13,My skin is itchy.
+insect-bite,1,Insect bite,虫に刺されました,14,I was bitten by an insect.
+since-today,2,Since today,今日からです,1,It started today.
+since-yesterday,2,Since yesterday,昨日からです,2,It started yesterday.
+two-three-days,2,2-3 days,2〜3日前からです,3,It started 2-3 days ago.
+about-a-week,2,About a week,1週間ほど前からです,4,It started about a week ago.
+over-two-weeks,2,More than 2 weeks,2週間以上前からです,5,It started more than 2 weeks ago.
+other-medicine,3,Taking other medicine,ほかに薬を飲んでいます,1,I am taking other medicine.
+pregnant,3,Pregnant or breastfeeding,妊娠中または授乳中です,2,I am pregnant or breastfeeding.
+drug-allergy,3,I have a drug allergy,薬のアレルギーがあります,3,I have a drug allergy.
+asthma,3,I have asthma,ぜんそくがあります,4,I have asthma.
+non-drowsy,3,Prefer non-drowsy,眠くならないものを希望します,5,I would prefer something non-drowsy.
+hard-to-swallow,3,Hard to swallow tablets,錠剤が苦手です,6,Tablets are difficult for me.
+for-a-child,3,This is for a child,子ども用です,7,This is for a child.
