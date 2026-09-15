@@ -1,5 +1,10 @@
-import { supabase } from "@/lib/supabase";
 import type { OtcClass } from "@/lib/otcClass";
+import { products } from "@/data/products";
+import { ingredients } from "@/data/ingredients";
+import { productIngredients } from "@/data/productIngredients";
+import { foreignBrands } from "@/data/foreignBrands";
+import { categories } from "@/data/categories";
+import { consultOptions } from "@/data/consultOptions";
 
 export interface ProductSearchItem {
   slug: string;
@@ -36,105 +41,67 @@ export interface CategoryProductItem {
   ingredientSlugs: string[];
 }
 
-interface RawProductRow {
-  slug: string;
-  name_ja: string;
-  name_romaji: string;
-  summary_en: string;
-  otc_class: OtcClass;
-  category: string;
-  form: string;
-  source_url: string | null;
-  reviewed_at: string | null;
-  product_ingredients: {
-    sort_order: number;
-    ingredients: { slug: string; name_en: string } | null;
-  }[];
+const ingredientBySlug = new Map(ingredients.map((ingredient) => [ingredient.slug, ingredient]));
+
+function ingredientsForProduct(productSlug: string) {
+  return productIngredients
+    .filter((pi) => pi.product_slug === productSlug)
+    .sort((a, b) => a.sort_order - b.sort_order)
+    .map((pi) => ingredientBySlug.get(pi.ingredient_slug))
+    .filter((ingredient): ingredient is NonNullable<typeof ingredient> => Boolean(ingredient));
 }
 
-interface RawCategoryProductRow {
-  slug: string;
-  name_ja: string;
-  name_romaji: string;
-  otc_class: OtcClass;
-  form: string;
-  product_ingredients: { ingredients: { slug: string } | null }[];
-}
-
-interface RawForeignBrandRow {
-  name: string;
-  ingredient_slug: string;
-  caveat_en: string | null;
-  ingredients: { name_en: string } | null;
-}
-
-export async function getProductsSearchIndex(): Promise<ProductSearchItem[]> {
-  const { data } = await supabase
-    .from("products")
-    .select(
-      "slug, name_ja, name_romaji, summary_en, otc_class, category, form, source_url, reviewed_at, product_ingredients(sort_order, ingredients(slug, name_en))"
-    )
-    .order("sort_order", { foreignTable: "product_ingredients", ascending: true })
-    .returns<RawProductRow[]>();
-
-  return (data ?? []).map((row) => ({
-    slug: row.slug,
-    name_ja: row.name_ja,
-    name_romaji: row.name_romaji,
-    summary_en: row.summary_en,
-    otc_class: row.otc_class,
-    category: row.category,
-    form: row.form,
-    source_url: row.source_url,
-    reviewed_at: row.reviewed_at,
-    ingredients: row.product_ingredients
-      .filter((pi) => pi.ingredients !== null)
-      .map((pi) => ({ slug: pi.ingredients!.slug, name_en: pi.ingredients!.name_en })),
+export function getProductsSearchIndex(): ProductSearchItem[] {
+  return products.map((product) => ({
+    slug: product.slug,
+    name_ja: product.name_ja,
+    name_romaji: product.name_romaji,
+    summary_en: product.summary_en,
+    otc_class: product.otc_class,
+    category: product.category,
+    form: product.form,
+    source_url: product.source_url,
+    reviewed_at: product.reviewed_on,
+    ingredients: ingredientsForProduct(product.slug).map((ing) => ({
+      slug: ing.slug,
+      name_en: ing.name_en,
+    })),
   }));
 }
 
-export async function getProductsByCategory(categorySlug: string): Promise<CategoryProductItem[]> {
-  const { data } = await supabase
-    .from("products")
-    .select("slug, name_ja, name_romaji, otc_class, form, product_ingredients(ingredients(slug))")
-    .eq("category", categorySlug)
-    .order("sort_order", { ascending: true })
-    .returns<RawCategoryProductRow[]>();
-
-  return (data ?? []).map((row) => ({
-    slug: row.slug,
-    name_ja: row.name_ja,
-    name_romaji: row.name_romaji,
-    otc_class: row.otc_class,
-    form: row.form,
-    ingredientSlugs: row.product_ingredients
-      .map((pi) => pi.ingredients?.slug)
-      .filter((slug): slug is string => Boolean(slug)),
-  }));
+export function getProductsByCategory(categorySlug: string): CategoryProductItem[] {
+  return products
+    .filter((product) => product.category === categorySlug)
+    .sort((a, b) => a.sort_order - b.sort_order)
+    .map((product) => ({
+      slug: product.slug,
+      name_ja: product.name_ja,
+      name_romaji: product.name_romaji,
+      otc_class: product.otc_class,
+      form: product.form,
+      ingredientSlugs: ingredientsForProduct(product.slug).map((ing) => ing.slug),
+    }));
 }
 
-export async function getForeignBrands(): Promise<ForeignBrandItem[]> {
-  const { data } = await supabase
-    .from("foreign_brands")
-    .select("name, ingredient_slug, caveat_en, ingredients(name_en)")
-    .order("name", { ascending: true })
-    .returns<RawForeignBrandRow[]>();
-
-  return (data ?? []).map((row) => ({
-    name: row.name,
-    ingredient_slug: row.ingredient_slug,
-    ingredient_name_en: row.ingredients?.name_en ?? "",
-    caveat_en: row.caveat_en,
-  }));
+export function getForeignBrands(): ForeignBrandItem[] {
+  return [...foreignBrands]
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((brand) => ({
+      name: brand.name,
+      ingredient_slug: brand.ingredient_slug,
+      ingredient_name_en: ingredientBySlug.get(brand.ingredient_slug)?.name_en ?? "",
+      caveat_en: brand.caveat_en,
+    }));
 }
 
-export async function getCategories(): Promise<CategoryItem[]> {
-  const { data } = await supabase
-    .from("categories")
-    .select("slug, name_en, name_ja")
-    .order("sort_order", { ascending: true })
-    .returns<CategoryItem[]>();
-  return data ?? [];
+export function getCategories(): CategoryItem[] {
+  return [...categories]
+    .sort((a, b) => a.sort_order - b.sort_order)
+    .map((category) => ({
+      slug: category.slug,
+      name_en: category.name_en,
+      name_ja: category.name_ja,
+    }));
 }
 
 export interface ConsultOption {
@@ -145,14 +112,16 @@ export interface ConsultOption {
   text_ja: string;
 }
 
-export async function getConsultOptions(): Promise<ConsultOption[]> {
-  const { data } = await supabase
-    .from("consult_options")
-    .select("slug, step, text_en, text_en_full, text_ja")
-    .order("step", { ascending: true })
-    .order("sort_order", { ascending: true })
-    .returns<ConsultOption[]>();
-  return data ?? [];
+export function getConsultOptions(): ConsultOption[] {
+  return [...consultOptions]
+    .sort((a, b) => a.step - b.step || a.sort_order - b.sort_order)
+    .map((option) => ({
+      slug: option.slug,
+      step: option.step,
+      text_en: option.text_en,
+      text_en_full: option.text_en_full,
+      text_ja: option.text_ja,
+    }));
 }
 
 export interface AboutStats {
@@ -161,22 +130,46 @@ export interface AboutStats {
   lastChecked: string | null;
 }
 
-export async function getAboutStats(): Promise<AboutStats> {
-  const [{ count: productCount }, { count: categoryCount }, { data: lastReviewed }] =
-    await Promise.all([
-      supabase.from("products").select("*", { count: "exact", head: true }),
-      supabase.from("categories").select("*", { count: "exact", head: true }),
-      supabase
-        .from("products")
-        .select("reviewed_at")
-        .not("reviewed_at", "is", null)
-        .order("reviewed_at", { ascending: false })
-        .limit(1),
-    ]);
+export function getAboutStats(): AboutStats {
+  const lastChecked = products.reduce<string | null>((latest, product) => {
+    if (!latest || product.reviewed_on > latest) return product.reviewed_on;
+    return latest;
+  }, null);
 
   return {
-    productCount: productCount ?? 0,
-    categoryCount: categoryCount ?? 0,
-    lastChecked: lastReviewed?.[0]?.reviewed_at ?? null,
+    productCount: products.length,
+    categoryCount: categories.length,
+    lastChecked,
   };
+}
+
+// /review（監修用）専用。成分の日本語名はこの画面にのみ出す
+export interface ReviewProductItem {
+  slug: string;
+  name_ja: string;
+  name_romaji: string;
+  maker: string;
+  otc_class: OtcClass;
+  source_url: string;
+  reviewed_on: string;
+  ingredients: { slug: string; name_en: string; name_ja: string }[];
+}
+
+export function getReviewProducts(): ReviewProductItem[] {
+  return [...products]
+    .sort((a, b) => a.reviewed_on.localeCompare(b.reviewed_on))
+    .map((product) => ({
+      slug: product.slug,
+      name_ja: product.name_ja,
+      name_romaji: product.name_romaji,
+      maker: product.maker,
+      otc_class: product.otc_class,
+      source_url: product.source_url,
+      reviewed_on: product.reviewed_on,
+      ingredients: ingredientsForProduct(product.slug).map((ing) => ({
+        slug: ing.slug,
+        name_en: ing.name_en,
+        name_ja: ing.name_ja,
+      })),
+    }));
 }

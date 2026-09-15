@@ -29,7 +29,7 @@ export default async function AboutPage() {
         <Link className="back" href="/" aria-label="Back to Home">
           &lsaquo;
         </Link>
-        <h2>About</h2>
+        <h1>About</h1>
       </div>
 
       <div className="about-section">
@@ -48,6 +48,9 @@ export default async function AboutPage() {
             package insert
           </li>
           <li>Every product page links to the manufacturer&#39;s own page</li>
+          <li>
+            Brand names such as Panadol or Nurofen are matched by active ingredient only
+          </li>
           <li>
             {stats.productCount} products across {stats.categoryCount} categories
           </li>
@@ -76,8 +79,8 @@ export default async function AboutPage() {
       <div className="support-section">
         <h3>Support this free guide</h3>
         <p>
-          If this helped you at a chemist in Japan, you can support its ongoing review and
-          maintenance.
+          If this helped you at a chemist in Japan, a one-off support helps cover source checks,
+          updates and keeping the guide online.
         </p>
         <p className="support-note">
           One-off only. The guide stays free and identical either way.

@@ -1,7 +1,7 @@
 # Japan Medicine Guide
 
 豪州からの訪日旅行者向け、日本の市販薬を英語で読むためのガイド。
-Next.js (App Router) / Supabase / Vercel / TypeScript。
+Next.js (App Router) / Vercel / TypeScript。データはリポジトリ内の静的ファイル。
 
 読者は Perth や Sydney から来た旅行者。Panadol と Nurofen を常備し、
 Pharmacist Only (S3) という概念を知っている。日本語は全く読めない。
@@ -25,6 +25,9 @@ v1 は検索窓を主役にしたため使いにくかった。
 - IBM Plex 系の書体と #FBFAF7 系の配色
 - 商品レコメンド、AIチャット、ログイン、会員機能、フォーム送信
 - 広告、課金、アフィリエイト
+- 広告、課金、アフィリエイト
+  （一回限りの少額支援のみ例外。詳細は「収益化」節を参照。
+  実装後に追記する）
 
 ## 絶対に守ること
 
@@ -227,7 +230,7 @@ This asks a staff member where to find it.   ← 11.5px / --ink-2
 - `Start over` は破壊的操作に見えない控えめなスタイルにする。
   `sessionStorage` を明示的にクリアすること
 
-## データベース（Supabase・すべて slug が主キー）
+## データ（静的ファイル・すべて slug が主キー）
 
 商品32点 / 8カテゴリ。全件監修済み（2026-08-29 時点）。
 
@@ -236,55 +239,117 @@ pain-fever(5) / cold-flu(5) / stomach(6) / allergy(4) /
 skin(5) / eye-drops(3) / motion-sickness(2) / muscle-joint(2)
 ```
 
+2026-09-14 に Supabase から静的ファイルへ移行した。
+移行前の DB の棚卸し結果は `docs/schema/2026-09-14_inventory.md`、
+エクスポートした CSV は `docs/archive/` にある。**CSV は原本であり編集しない。**
+
+### 配置
+
 ```
-products(slug, name_ja, name_romaji, summary_en, maker, otc_class,
-  category, form, search_terms text[], sort_order, source_url,
-  verified, reviewed_at, updated_at)
-ingredients(slug, name_en, name_ja, note_en, verified)
-product_ingredients(product_slug, ingredient_slug, sort_order)
-foreign_brands(name, ingredient_slug, caveat_en, source_url, verified)
-categories(slug, name_en, name_ja, sort_order)
-consult_options(slug, step, text_en, text_en_full, text_ja, sort_order)
+data/types.ts                 型定義
+data/products.ts              32件
+data/ingredients.ts           82件
+data/productIngredients.ts   118件
+data/foreignBrands.ts          8件
+data/categories.ts             8件
+data/consultOptions.ts        26件
+data/counterPhrases.ts         5件
 ```
 
-otc_class は enum: 'class1' | 'designated_class2' | 'class2' | 'class3'
+`lib/data.ts` が唯一の参照口。**ページや components から `data/` を直接 import しない。**
+参照経路を1本に保つことで、`/consult` が商品データに触れていないことを
+機械的に検証できる状態を維持する。
+
+### 列名は DB のまま（snake_case）にする
+
+`name_ja` / `name_romaji` / `summary_en` / `otc_class` / `sort_order` などを
+camelCase に直さない。全画面の差分になり、`docs/archive/` の CSV との
+突き合わせもできなくなる。型名だけ TypeScript の慣習に従う。
+
+### DB から引き継がない列
+
+| 列 | 理由 |
+| --- | --- |
+| `products.search_terms` | v2 で未使用 |
+| `products.verified` | 全件 true。未監修の商品はリポジトリに入れない運用で代替する |
+| `products.updated_at` | 自動更新トリガ（`products_touch`）が消え、意味を失う |
+| `foreign_brands.verified` | 出典が TGA。日本の薬剤師である監修者の対象外 |
+| `foreign_brands.source_url` | 全件 null。下記の理由により持たない |
+
+`products.reviewed_at`（timestamptz）は **`reviewed_on`**（`'2026-08-29'` 形式の
+日付文字列）に変える。Excel で監修する運用に秒精度は要らない。
+列名を変えるのは、型が変わったことを呼び出し側に気づかせるため。
+
+### 未監修のデータは持たない
+
+`verified` フラグで表示を止めるのではなく、**監修が終わるまでリポジトリに入れない。**
+存在しないものは漏れない。フラグは「未公開のデータがバンドルに含まれている」
+状態を作るだけで、静的配信では表示制御として機能しない。
+
+### foreign_brands は出典を持たない
+
+`source_url` を持たない。ARTG のエントリは Panadol だけで剤形違いが
+数十件あり、どれを選んでも恣意的で、出典として機能しないため。
+「Panadol の有効成分は paracetamol」は豪州の利用者にとって
+検証を求める種類の事実ではない。`products.source_url` が指しているのは
+製品情報という検証の要る事実であり、性質が違う。
+
+担保は出典ではなく**ラベルが出る条件**で行う。
+"Same as X" が単一成分の6件にのみ出ることを【2/3】のテストで固定する。
+
+### 失われた DB 制約
+
+主キー6本 / 外部キー4本（うち1本は ON DELETE CASCADE）/
+CHECK 1本（`consult_options.step IN (1,2,3)`）/
+トリガ1本（`products_touch`）。
+
+ASCII 制約、`sort_order` の一意性、`class1` は `sort_order = 9` という規約、
+`slug` の形式チェックは**元から存在しなかった**。守られていたのは
+手で正しく入れていたからで、DB は一切支えていない。
+制約の移植ではなく「あるべきだった制約を今回入れる」として
+【2/3】の Vitest で実装する。
+
+### at_counter の5件
+
+v1 の `phrases` テーブルにあり、v2 で行き先を失っていた5件。
+`data/counterPhrases.ts` に持つ。**`consultOptions` には混ぜない。**
+ステップの選択肢ではなく、完成カードの下に常時出る固定ブロックだから。
+混ぜると「step 4」という存在しない概念を作ることになる。
+（表示の実装は未着手）
+
+### 型
+
+otc_class は union type:
+`'class1' | 'designated_class2' | 'class2' | 'class3'`
 → UI では designated_class2 と class2 を同じ表示に統合する
-→ **表示文言は DB に持たず lib/otcClass.ts の定数で一元管理する。
-JSX に直書きしない**
+→ **表示文言は lib/otcClass.ts の定数で一元管理する。JSX に直書きしない**
 
 consult_options.step: 1=症状 / 2=期間 / 3=状況
 `text_en` はチップのラベル、`text_en_full` は完成カードの WHAT IT SAYS 用。
 両者が同一になる行があるのは正常。列を分けた目的は重複回避ではなく、
 独立して変更できるようにすること。
 
-成分は product_ingredients.sort_order の順で表示する（箱の印刷順）。
+成分は `product_ingredients.sort_order` の順で表示する（箱の印刷順）。
 
 `ingredients.note_en` は豪州で OTC 入手できない成分の注記に使う
 （コデイン類、プソイドエフェドリン、外用ステロイド）。
 成分マスタに1行書けば該当する全商品に反映される。商品ごとに事実を増やさない。
 
-search_terms は v2 では使わない。列は残すが参照しない。
+### データの変更手順
 
-**スキーマ変更と既存データの変更は Claude Code では実行しない。**
-SQL が必要な場合は apply / verify の2本のファイルを生成し、
-私が Supabase の SQL Editor で流す。apply は begin/commit で囲む。
-インラインコメントを SQL 文の途中に入れない（SQL Editor は選択範囲だけを
-実行するため）。`reviewed_at = now()` は必ず最後に実行する。
-ファイル名は `supabase/YYYY-MM-DD_内容-apply.sql` のように日付を先頭に置く。
-
-`.env.local` には anon キーのみを置く。service_role キーを置かない。
-DB は監修済みの成果物の置き場であり、読み取り専用の経路しか持たせない。
+SQL ファイルを書いて SQL Editor で流す運用は終了した。
+今後は `data/` を直接編集し、PR の差分でレビューする。
+`docs/archive/` の CSV は移行時点の原本として残す。編集しない。
 
 ## 構成
 
-- 全ページ静的生成。ビルド時に Supabase から全件取得し、実行時には叩かない
+- 全ページ静的生成。データはビルド時に `data/` から読む。外部サービスを叩かない
+- 動的ルートには必ず `generateStaticParams` を実装する。無いと ƒ のまま残る
 - 認証なし、フォームなし
 - `/consult` の選択状態と商品詳細のタブ状態のみクライアント側で保持する
 - ページ全体を `"use client"` にしない。状態が必要な部分だけ切り出す
 - 新しい依存パッケージを追加しない
 - max-width 480px のモバイルファースト構成を維持する
-- `lib/supabase.ts` は環境変数が欠けていればビルドを失敗させる。
-  どちらが欠けているか分かるメッセージにする
 
 ## デザイン
 
@@ -410,7 +475,14 @@ sitemap に含める: `/` `/about` `/consult` 全カテゴリ 全商品
 ## 監修体制
 
 妻（Nao）が薬剤師。事実確認は妻、英文の読みやすさは私が担当。
-Excel の監修シートで実施し、`/review` で `updated_at > reviewed_at` の差分を確認する。
+Excel の監修シートで実施する。`/review` は監修対象32件を `reviewed_on` の
+古い順に一覧表示する画面。差分判定のロジックは持たない。
+
+`updated_at > reviewed_at` による差分検出は `products_touch` トリガに
+依存していたため、静的化で成立しなくなった。代わりに、監修者が検証する
+3項目（商品名 / 成分名 / 区分）のハッシュをデータに持たせ、
+値が変わったのにハッシュが更新されていなければテストが落ちる形にする。
+（【2/3】で実装。トリガと違い `source_url` の誤字修正では反応しない）
 承認ボタンやワークフローは作らない。医療の個別判断は AI にさせない。
 
 ## 収益化
@@ -480,12 +552,12 @@ Ko-fi Free は 0% で入金先も同じ Stripe のため、**コスト差はな�
 - **「箱を持っているが名前が分からない」ケース**: v1 の失敗は検索を入口の主役に
   したことで、職務自体は残っている。公開後の離脱率を見てから判断する
 - **`--border` の濃さ**: `#C7C4B8` は控えめ側。`#C2BFB2` 前後まで濃くする選択肢もある
-- **foreign_brands.verified が全件 false**: 次の監修サイクルで Nao に確認する
 - **`.hero` など未使用CSS**: 全画面が一巡した段階でまとめて掃除する
 
 ## 確認のしかた
 
-全ページ静的生成のため、**ライブサイトの内容は「最後にビルドした時点のDB」**。
+全ページ静的生成のため、**ライブサイトの内容は「最後にビルドした時点のリポジトリ」**。
+データを変更したら再デプロイするまで反映されない。
 実装の確認は `npm run build` と `npm run start` をローカルで行い、
 ライブでの確認は再デプロイ後にすること。
 ライブが古く見えるときは、まずデプロイの新しさを疑う。
