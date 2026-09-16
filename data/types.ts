@@ -12,6 +12,9 @@ export interface ProductRow {
   sort_order: number;
   source_url: string;
   reviewed_on: string;
+  // 監修者が検証する3項目（name_ja / 成分slugの列 / otc_class）から計算した
+  // sha256 先頭8文字。計算式は tests/reviewHash.test.ts 側で再実装して照合する
+  review_hash: string;
 }
 
 export interface IngredientRow {

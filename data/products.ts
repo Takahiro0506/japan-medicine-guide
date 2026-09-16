@@ -14,6 +14,7 @@ export const products = [
     sort_order: 4,
     source_url: "https://www.ssp.co.jp/alesion/products/epinastine/",
     reviewed_on: "2026-08-29",
+    review_hash: "06302778",
   },
   {
     slug: "allegra-fx",
@@ -27,6 +28,7 @@ export const products = [
     sort_order: 1,
     source_url: "https://www.kegg.jp/medicus-bin/japic_otc?japic_code=J1201000287",
     reviewed_on: "2026-08-29",
+    review_hash: "06560954",
   },
   {
     slug: "anneron",
@@ -40,6 +42,7 @@ export const products = [
     sort_order: 2,
     source_url: "https://www.ssp.co.jp/product/detail/annys/",
     reviewed_on: "2026-08-29",
+    review_hash: "6ef90318",
   },
   {
     slug: "benza-block-l",
@@ -53,6 +56,7 @@ export const products = [
     sort_order: 5,
     source_url: "https://alinamin-kenko.jp/products/kaze/bbl.html",
     reviewed_on: "2026-08-29",
+    review_hash: "c7ecad9e",
   },
   {
     slug: "bufferin-a",
@@ -66,6 +70,7 @@ export const products = [
     sort_order: 4,
     source_url: "https://www.bufferin.net/products/a",
     reviewed_on: "2026-08-29",
+    review_hash: "1929d205",
   },
   {
     slug: "bufferin-luna-i",
@@ -79,6 +84,7 @@ export const products = [
     sort_order: 3,
     source_url: "https://www.lion.co.jp/ja/products/190",
     reviewed_on: "2026-08-29",
+    review_hash: "fab532bf",
   },
   {
     slug: "claritin-ex",
@@ -92,6 +98,7 @@ export const products = [
     sort_order: 2,
     source_url: "https://www.kegg.jp/medicus-bin/japic_otc?japic_code=K1701000007",
     reviewed_on: "2026-08-29",
+    review_hash: "6dea976b",
   },
   {
     slug: "eve-a",
@@ -105,6 +112,7 @@ export const products = [
     sort_order: 2,
     source_url: "https://www.ssp.co.jp/product/detail/evea/",
     reviewed_on: "2026-08-29",
+    review_hash: "79d4057e",
   },
   {
     slug: "gaster-10",
@@ -118,6 +126,7 @@ export const products = [
     sort_order: 9,
     source_url: "https://www.daiichisankyo-hc.co.jp/products/details/gaster/",
     reviewed_on: "2026-08-29",
+    review_hash: "e3f1c2e8",
   },
   {
     slug: "kinkan",
@@ -131,6 +140,7 @@ export const products = [
     sort_order: 4,
     source_url: "https://www.kinkan.co.jp/products/kinkan20/",
     reviewed_on: "2026-08-29",
+    review_hash: "2344ee9f",
   },
   {
     slug: "liquid-muhi-s2a",
@@ -144,6 +154,7 @@ export const products = [
     sort_order: 3,
     source_url: "https://shop.ikedamohando.co.jp/shop/products/inb0002n",
     reviewed_on: "2026-08-29",
+    review_hash: "2b148773",
   },
   {
     slug: "loxonin-s",
@@ -157,6 +168,7 @@ export const products = [
     sort_order: 9,
     source_url: "https://www.daiichisankyo-hc.co.jp/products/details/loxonin-s/",
     reviewed_on: "2026-08-29",
+    review_hash: "c9f0b0f6",
   },
   {
     slug: "lulu-attack-ex",
@@ -170,6 +182,7 @@ export const products = [
     sort_order: 4,
     source_url: "https://www.daiichisankyo-hc.co.jp/products/details/lulu_attack_ex/",
     reviewed_on: "2026-08-29",
+    review_hash: "58eaf49b",
   },
   {
     slug: "mentholatum-ad",
@@ -183,6 +196,7 @@ export const products = [
     sort_order: 5,
     source_url: "https://www.shop.rohto.co.jp/category/medicine/mentholatum/ad/199419.html",
     reviewed_on: "2026-08-29",
+    review_hash: "1aa8d236",
   },
   {
     slug: "muhi-s",
@@ -196,6 +210,7 @@ export const products = [
     sort_order: 2,
     source_url: "https://www.ikedamohando.co.jp/products/muhi-s.html",
     reviewed_on: "2026-08-29",
+    review_hash: "19d3f428",
   },
   {
     slug: "oronine-h",
@@ -209,6 +224,7 @@ export const products = [
     sort_order: 1,
     source_url: "https://www.otsuka.co.jp/ohn/",
     reviewed_on: "2026-08-29",
+    review_hash: "a3f3db24",
   },
   {
     slug: "ota-isan",
@@ -222,6 +238,7 @@ export const products = [
     sort_order: 1,
     source_url: "https://ohta-isan.co.jp/product/medicine/ohtaisanb-s/",
     reviewed_on: "2026-08-29",
+    review_hash: "7f8fcde3",
   },
   {
     slug: "pabron-gold-a",
@@ -235,6 +252,7 @@ export const products = [
     sort_order: 3,
     source_url: "https://www.catalog-taisho.com/category/02/001/04513/",
     reviewed_on: "2026-08-29",
+    review_hash: "4d20cf68",
   },
   {
     slug: "pelack-t",
@@ -248,6 +266,7 @@ export const products = [
     sort_order: 1,
     source_url: "https://www.daiichisankyo-hc.co.jp/products/details/pelack_t_tab/",
     reviewed_on: "2026-08-29",
+    review_hash: "6f44075f",
   },
   {
     slug: "rohto-c-cube-a",
@@ -261,6 +280,7 @@ export const products = [
     sort_order: 1,
     source_url: "https://jp.rohto.com/c3/eyedrop-a/",
     reviewed_on: "2026-08-29",
+    review_hash: "d457d92e",
   },
   {
     slug: "ryukakusan-direct",
@@ -274,6 +294,7 @@ export const products = [
     sort_order: 2,
     source_url: "https://www.ryukakusan.co.jp/direct/",
     reviewed_on: "2026-08-29",
+    review_hash: "2f1b89c2",
   },
   {
     slug: "salonpas-ae",
@@ -287,6 +308,7 @@ export const products = [
     sort_order: 2,
     source_url: "https://www.salonpas.jp/lineup/salonpas_ae.html",
     reviewed_on: "2026-08-29",
+    review_hash: "6f8fb4b9",
   },
   {
     slug: "sante-fx-neo",
@@ -300,6 +322,7 @@ export const products = [
     sort_order: 3,
     source_url: "https://www.santen.com/jp/healthcare/eye/products/otc/sante_fx_neo",
     reviewed_on: "2026-08-29",
+    review_hash: "20957031",
   },
   {
     slug: "seirogan",
@@ -313,6 +336,7 @@ export const products = [
     sort_order: 4,
     source_url: "https://search.jsm-db.info/sp/detail.php?txtID=4987110000002",
     reviewed_on: "2026-08-29",
+    review_hash: "7f257f78",
   },
   {
     slug: "shin-biofermin-s",
@@ -326,6 +350,7 @@ export const products = [
     sort_order: 2,
     source_url: "https://brand.taisho.co.jp/biofermin/product/s/jou/",
     reviewed_on: "2026-08-29",
+    review_hash: "25673bfb",
   },
   {
     slug: "smile-40ex",
@@ -339,6 +364,7 @@ export const products = [
     sort_order: 2,
     source_url: "https://www.lion.co.jp/ja/products/201",
     reviewed_on: "2026-08-29",
+    review_hash: "be331eb3",
   },
   {
     slug: "stonarini-z",
@@ -352,6 +378,7 @@ export const products = [
     sort_order: 3,
     source_url: "https://search.sato-seiyaku.co.jp/pub/product/2078/",
     reviewed_on: "2026-08-29",
+    review_hash: "e1b71fc7",
   },
   {
     slug: "stoppa-ex",
@@ -366,6 +393,7 @@ export const products = [
     source_url:
       "https://www.data-index.co.jp/medsearch/otc/results/detail/?touroku_code=B00800261031",
     reviewed_on: "2026-08-29",
+    review_hash: "2fc0db5c",
   },
   {
     slug: "taisho-kampo-ichoyaku",
@@ -379,6 +407,7 @@ export const products = [
     sort_order: 5,
     source_url: "https://www.catalog-taisho.com/category/05/001/00948/",
     reviewed_on: "2026-08-29",
+    review_hash: "04aafb61",
   },
   {
     slug: "travelmin",
@@ -392,6 +421,7 @@ export const products = [
     sort_order: 1,
     source_url: "https://www.eisai.jp/products/travelmin/travelmin_s",
     reviewed_on: "2026-08-29",
+    review_hash: "1ac59199",
   },
   {
     slug: "tylenol-a",
@@ -405,6 +435,7 @@ export const products = [
     sort_order: 1,
     source_url: "https://www.tylenol.jp/products-tylenol",
     reviewed_on: "2026-08-29",
+    review_hash: "0b53ba43",
   },
   {
     slug: "voltaren-ex-tape",
@@ -418,5 +449,6 @@ export const products = [
     sort_order: 1,
     source_url: "https://www.kegg.jp/medicus-bin/japic_otc?japic_code=J1301000189",
     reviewed_on: "2026-08-29",
+    review_hash: "43765ff6",
   },
 ] as const satisfies readonly ProductRow[];

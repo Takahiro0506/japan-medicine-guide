@@ -345,7 +345,7 @@ export const ingredients = [
     slug: "paracetamol",
     name_en: "Paracetamol",
     name_ja: "アセトアミノフェン",
-    note_en: "The same ingredient as in Panadol. Japanese boxes write it as acetaminophen.",
+    note_en: "The same ingredient as in Panadol. Japanese boxes may use the American name for this ingredient.",
   },
   {
     slug: "phellodendron-bark",
